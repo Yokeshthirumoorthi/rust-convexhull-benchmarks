@@ -1,0 +1,6 @@
+[package]
+name = "rustalgo"
+version = "0.1.0"
+authors = ["Yokesh Thirumoorthi <Yokeshthirumoorthi@gmail.com>"]
+
+[dependencies]
