@@ -43,22 +43,15 @@ impl Point2D {
 fn test_add_new_points() {
     assert_eq!(Point2D { x: 1, y: 2 }, Point2D::new(1, 2));
 }
-// TODO: how to test when returning references?
-// #[test]
-// fn test_pick_left() {
-//     assert_eq!(
-//         Point2D { x: 1, y: 0 },
-//         Point2D::new(1, 2).pickleft(Point2D::new(1, 0))
-//     );
-//     assert_eq!(
-//         Point2D { x: 1, y: 2 },
-//         Point2D::new(1, 2).pickleft(Point2D::new(1, 2))
-//     );
-//     assert_eq!(
-//         Point2D { x: 0, y: 2 },
-//         Point2D::new(1, 2).pickleft(Point2D::new(0, 2))
-//     );
-// }
+#[test]
+fn test_pick_left() {
+    let pointA = Point2D::new(1, 2);
+    let pointB = Point2D::new(1, 3);
+    let pointC = Point2D::new(0, 2);
+    assert_eq!(&pointA, pointA.pickleft(&pointA));
+    assert_eq!(&pointA, pointA.pickleft(&pointB));
+    assert_eq!(&pointC, pointA.pickleft(&pointC));
+}
 
 //given a set of points, pick the leftmost point
 fn pick_vertex(input_set: &Vec<Point2D>) -> &Point2D {
