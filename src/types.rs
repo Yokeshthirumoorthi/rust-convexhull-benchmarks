@@ -1,6 +1,7 @@
 // TODO: point2D should accept any integer type. make it generic
 // TODO: The generic type should be bound to eq trait
 // TODO: add rust doc
+use std::cmp::Ordering;
 
 //point2D data type with x and y coordinate values
 //is the basic representation of a point in
@@ -68,9 +69,15 @@ fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
     11.0
 }
 
+impl PartialOrd for Fatpoint2D {
+    fn partial_cmp(&self, other: &Fatpoint2D) -> Option<Ordering> {
+        self.angle.partial_cmp(&other.angle)
+    }
+}
+
 //implementation methods of Fatpoint2D datatype
 impl Fatpoint2D {
-    //create properties for a point from the vertex
+    //create properties for a point from another point usually the vertex
     fn new(point: &Point2D, vertex: &Point2D) -> Fatpoint2D {
         Fatpoint2D {
             x: point.x,
@@ -79,6 +86,11 @@ impl Fatpoint2D {
             angle: compute_angle(point, vertex),
         }
     }
+
+    // //provide cmp function to sortby angle
+    // fn cmp_fatpoint2D(&self, point2: &Fatpoint2D) {
+    //     self.angle.partial_cmp(&point2.angle).unwrap();
+    // }
 }
 
 //some test cases for point2D data type.
@@ -100,6 +112,25 @@ fn test_add_new_points_details() {
         Fatpoint2D::new(&pointA, &pointB)
     );
 }
+#[test]
+fn test_fat_pt_cmp() {
+    let fat_pointA = Fatpoint2D {
+        x: 1,
+        y: 2,
+        distance: 10.0,
+        angle: 10.0,
+    };
+    let fat_pointB = Fatpoint2D {
+        x: 1,
+        y: 3,
+        distance: 10.0,
+        angle: 1.0,
+    };
+    let mut set = vec![&fat_pointA, &fat_pointB];
+    set.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    assert_eq!(vec![&fat_pointB, &fat_pointA], set);
+}
+
 #[test]
 fn test_pick_left() {
     let pointA = Point2D::new(1, 2);
