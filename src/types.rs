@@ -1,3 +1,7 @@
+// TODO: point2D should accept any integer type. make it generic
+// TODO: The generic type should be bound to eq trait
+// TODO: add rust doc
+
 //point2D data type with x and y coordinate values
 //is the basic representation of a point in
 //2d euclidean space
@@ -74,7 +78,3 @@ fn test_add_pick_vertex() {
     let input_set = vec![pointA, pointB, pointC];
     assert_eq!(&pointD, pick_vertex(&input_set));
 }
-//TODO:
-// point2D should accept any integer type. make it generic
-// The generic type should be bound to eq trait
-// add rust doc
