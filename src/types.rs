@@ -6,10 +6,16 @@ use std::cmp::Ordering;
 //point2D data type with x and y coordinate values
 //is the basic representation of a point in
 //2d euclidean space
-#[derive(Debug, Eq, PartialEq)]
+#[derive(Debug)]
 pub struct Point2D {
     x: u64,
     y: u64,
+}
+
+impl PartialEq for Point2D {
+    fn eq(&self, other: &Point2D) -> bool {
+        self.x == other.x && self.y == other.y
+    }
 }
 
 //implement methods of point2D datatype
