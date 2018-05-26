@@ -18,31 +18,45 @@ impl Point2D {
     //first compare the y-coordinate, if it
     //is same then compare x-coordinate.
     //when both the points are same return any one
-    // pub fn pickleft(&self, other: &Point2D) -> &Point2D {
-    //     if self == other {
-    //         return &self;
-    //     }
-    //     if self.y != other.y {
-    //         if self.y < other.y {
-    //             return &self;
-    //         } else {
-    //             return &other;
-    //         }
-    //     }
-    //     if self.x != other.x {
-    //         if self.x < other.x {
-    //             return &self;
-    //         } else {
-    //             return &other;
-    //         }
-    //     }
-    // }
+    pub fn pickleft(self, other: Point2D) -> Point2D {
+        if self == other {
+            return other;
+        }
+        if self.y != other.y {
+            if self.y < other.y {
+                return self;
+            } else {
+                return other;
+            }
+        } else {
+            if self.x < other.x {
+                return self;
+            } else {
+                return other;
+            }
+        }
+    }
 }
 
 //some test cases for point2D data type.
 #[test]
 fn test_add_new_points() {
     assert_eq!(Point2D { x: 1, y: 2 }, Point2D::new(1, 2));
+}
+#[test]
+fn test_pick_left() {
+    assert_eq!(
+        Point2D { x: 1, y: 0 },
+        Point2D::new(1, 2).pickleft(Point2D::new(1, 0))
+    );
+    assert_eq!(
+        Point2D { x: 1, y: 2 },
+        Point2D::new(1, 2).pickleft(Point2D::new(1, 2))
+    );
+    assert_eq!(
+        Point2D { x: 0, y: 2 },
+        Point2D::new(1, 2).pickleft(Point2D::new(0, 2))
+    );
 }
 
 //TODO:
