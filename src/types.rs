@@ -42,10 +42,48 @@ impl Point2D {
     }
 }
 
+//a type for storing additional properties of a point
+//derived from the vertex point.
+//These details are used for sorting points based on vertex
+#[derive(Debug, PartialEq)]
+pub struct Fatpoint2D {
+    x: u64,
+    y: u64,
+    distance: f64,
+    angle: f64,
+}
+
+//implementation methods of Fatpoint2D datatype
+impl Fatpoint2D {
+    //create properties for a point from the vertex
+    fn new(point: &Point2D, vertex: &Point2D) -> Fatpoint2D {
+        Fatpoint2D {
+            x: point.x,
+            y: point.y,
+            distance: 0.0,
+            angle: 0.0,
+        }
+    }
+}
+
 //some test cases for point2D data type.
 #[test]
 fn test_add_new_points() {
     assert_eq!(Point2D { x: 1, y: 2 }, Point2D::new(1, 2));
+}
+#[test]
+fn test_add_new_points_details() {
+    let pointA = Point2D::new(1, 2);
+    let pointB = Point2D::new(1, 3);
+    assert_eq!(
+        Fatpoint2D {
+            x: 1,
+            y: 2,
+            distance: 0.0,
+            angle: 0.0,
+        },
+        Fatpoint2D::new(&pointA, &pointB)
+    );
 }
 #[test]
 fn test_pick_left() {
