@@ -68,7 +68,7 @@ fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
 // TODO: this function is private only for fatpoint2d implementation
 //compute polar angle between 2 points
 fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
-    (point2.y - point1.y).atan2((point2.x - point1.x))
+    (point2.y - point1.y).atan2(point2.x - point1.x)
 }
 
 impl PartialOrd for Fatpoint2D {
