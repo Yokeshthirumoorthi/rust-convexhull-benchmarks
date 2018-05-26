@@ -88,11 +88,6 @@ impl Fatpoint2D {
             angle: compute_angle(point, vertex),
         }
     }
-
-    // //provide cmp function to sortby angle
-    // fn cmp_fatpoint2D(&self, point2: &Fatpoint2D) {
-    //     self.angle.partial_cmp(&point2.angle).unwrap();
-    // }
 }
 
 //some test cases for point2D data type.
