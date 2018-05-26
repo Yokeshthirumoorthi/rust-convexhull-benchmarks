@@ -53,6 +53,21 @@ pub struct Fatpoint2D {
     angle: f64,
 }
 
+// TODO: this function is private only for fatpoint2d implementation
+//compute euclidean distance between 2 points
+fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
+    // ((point1.x - point2.x).to_f64().powi(2) + (point1.y - point2.y).to_f64().powi(2)).sqrt()
+    10.0
+}
+// TODO: this function is private only for fatpoint2d implementation
+//compute polar angle between 2 points
+fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
+    // (point2.y - point1.y)
+    //     .to_f64()
+    //     .atan2((point2.x - point1.x).to_f64())
+    11.0
+}
+
 //implementation methods of Fatpoint2D datatype
 impl Fatpoint2D {
     //create properties for a point from the vertex
@@ -60,8 +75,8 @@ impl Fatpoint2D {
         Fatpoint2D {
             x: point.x,
             y: point.y,
-            distance: 0.0,
-            angle: 0.0,
+            distance: compute_distance(point, vertex),
+            angle: compute_angle(point, vertex),
         }
     }
 }
@@ -79,8 +94,8 @@ fn test_add_new_points_details() {
         Fatpoint2D {
             x: 1,
             y: 2,
-            distance: 0.0,
-            angle: 0.0,
+            distance: 10.0,
+            angle: 11.0,
         },
         Fatpoint2D::new(&pointA, &pointB)
     );
