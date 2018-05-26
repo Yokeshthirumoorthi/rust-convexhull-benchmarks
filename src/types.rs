@@ -8,8 +8,8 @@ use std::cmp::Ordering;
 //2d euclidean space
 #[derive(Debug)]
 pub struct Point2D {
-    x: u64,
-    y: u64,
+    x: f64,
+    y: f64,
 }
 
 impl PartialEq for Point2D {
@@ -21,7 +21,7 @@ impl PartialEq for Point2D {
 //implement methods of point2D datatype
 impl Point2D {
     // a handy method to create new points
-    pub fn new(x: u64, y: u64) -> Point2D {
+    pub fn new(x: f64, y: f64) -> Point2D {
         Point2D { x, y }
     }
 
@@ -54,8 +54,8 @@ impl Point2D {
 //These details are used for sorting points based on vertex
 #[derive(Debug, PartialEq)]
 pub struct Fatpoint2D {
-    x: u64,
-    y: u64,
+    x: f64,
+    y: f64,
     distance: f64,
     angle: f64,
 }
@@ -102,16 +102,16 @@ impl Fatpoint2D {
 //some test cases for point2D data type.
 #[test]
 fn test_add_new_points() {
-    assert_eq!(Point2D { x: 1, y: 2 }, Point2D::new(1, 2));
+    assert_eq!(Point2D { x: 1.0, y: 2.0 }, Point2D::new(1.0, 2.0));
 }
 #[test]
 fn test_add_new_points_details() {
-    let pointA = Point2D::new(1, 2);
-    let pointB = Point2D::new(1, 3);
+    let pointA = Point2D::new(1.0, 2.0);
+    let pointB = Point2D::new(1.0, 3.0);
     assert_eq!(
         Fatpoint2D {
-            x: 1,
-            y: 2,
+            x: 1.0,
+            y: 2.0,
             distance: 10.0,
             angle: 11.0,
         },
@@ -121,14 +121,14 @@ fn test_add_new_points_details() {
 #[test]
 fn test_fat_pt_cmp() {
     let fat_pointA = Fatpoint2D {
-        x: 1,
-        y: 2,
+        x: 1.0,
+        y: 2.0,
         distance: 10.0,
         angle: 10.0,
     };
     let fat_pointB = Fatpoint2D {
-        x: 1,
-        y: 3,
+        x: 1.0,
+        y: 3.0,
         distance: 10.0,
         angle: 1.0,
     };
@@ -139,9 +139,9 @@ fn test_fat_pt_cmp() {
 
 #[test]
 fn test_pick_left() {
-    let pointA = Point2D::new(1, 2);
-    let pointB = Point2D::new(1, 3);
-    let pointC = Point2D::new(0, 2);
+    let pointA = Point2D::new(1.0, 2.0);
+    let pointB = Point2D::new(1.0, 3.0);
+    let pointC = Point2D::new(0.0, 2.0);
     assert_eq!(&pointA, pointA.pickleft(&pointA));
     assert_eq!(&pointA, pointA.pickleft(&pointB));
     assert_eq!(&pointC, pointA.pickleft(&pointC));
@@ -161,10 +161,10 @@ fn pick_vertex(input_set: &Vec<Point2D>) -> &Point2D {
 
 #[test]
 fn test_add_pick_vertex() {
-    let pointA = Point2D::new(1, 2);
-    let pointB = Point2D::new(1, 3);
-    let pointC = Point2D::new(1, 4);
-    let pointD = Point2D::new(1, 2);
+    let pointA = Point2D::new(1.0, 2.0);
+    let pointB = Point2D::new(1.0, 3.0);
+    let pointC = Point2D::new(1.0, 4.0);
+    let pointD = Point2D::new(1.0, 2.0);
     let input_set = vec![pointA, pointB, pointC];
     assert_eq!(&pointD, pick_vertex(&input_set));
 }
