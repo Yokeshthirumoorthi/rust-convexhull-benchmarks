@@ -63,8 +63,7 @@ pub struct Fatpoint2D {
 // TODO: this function is private only for fatpoint2d implementation
 //compute euclidean distance between 2 points
 fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
-    // ((point1.x - point2.x).to_f64().powi(2) + (point1.y - point2.y).to_f64().powi(2)).sqrt()
-    10.0
+    ((point1.x - point2.x).powi(2) + (point1.y - point2.y).powi(2)).sqrt()
 }
 // TODO: this function is private only for fatpoint2d implementation
 //compute polar angle between 2 points
@@ -112,7 +111,7 @@ fn test_add_new_points_details() {
         Fatpoint2D {
             x: 1.0,
             y: 2.0,
-            distance: 10.0,
+            distance: 1.0,
             angle: 11.0,
         },
         Fatpoint2D::new(&pointA, &pointB)
