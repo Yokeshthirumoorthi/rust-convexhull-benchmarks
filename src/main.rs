@@ -10,16 +10,16 @@ fn main() {
 //CH(Q). When the algorithm terminates, stack S cpntains
 //exactly the vertices of CH(Q), in counter clockwise
 //order of their appearance on the boundary
-fn graham_scan<'a>(inputSet: &Vec<&'a types::Point2D>) -> Vec<&'a types::Point2D> {
-    //panic when inputset has less than or equalto 2 elements
-    assert!(inputSet.len() > 2);
+fn graham_scan<'a>(input_set: &Vec<&'a types::Point2D>) -> Vec<&'a types::Point2D> {
+    //panic when input_set has less than or equalto 2 elements
+    assert!(input_set.len() > 2);
     //initialize the stack that will maintain the candidate points
     let mut s: Vec<&types::Point2D> = Vec::new();
-    s.push(&inputSet[0]);
-    s.push(&inputSet[1]);
-    s.push(&inputSet[2]);
-    for i in 3..inputSet.len() {
-        s.push(&inputSet[i])
+    s.push(&input_set[0]);
+    s.push(&input_set[1]);
+    s.push(&input_set[2]);
+    for i in 3..input_set.len() {
+        s.push(&input_set[i])
     }
     s
 }
