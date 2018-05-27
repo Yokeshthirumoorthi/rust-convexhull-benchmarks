@@ -199,6 +199,9 @@ fn graham_scan<'a>(input_set: &Vec<&'a Point2D>) -> Vec<&'a Point2D> {
     s.push(&input_set[1]);
     s.push(&input_set[2]);
     for i in 3..input_set.len() {
+        while s[s.len() - 2].ccw(&s[s.len() - 1], &input_set[i]) {
+            s.pop();
+        }
         s.push(&input_set[i])
     }
     s
