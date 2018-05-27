@@ -190,7 +190,7 @@ fn test_add_pick_vertex() {
 //CH(Q). When the algorithm terminates, stack S cpntains
 //exactly the vertices of CH(Q), in counter clockwise
 //order of their appearance on the boundary
-fn graham_scan<'a>(input_set: &Vec<&'a Point2D>) -> Vec<&'a Point2D> {
+fn graham_scan<'a>(input_set: &Vec<Point2D>) -> Vec<&Point2D> {
     //panic when input_set has less than or equalto 2 elements
     assert!(input_set.len() > 2);
     //initialize the stack that will maintain the candidate points
@@ -204,6 +204,8 @@ fn graham_scan<'a>(input_set: &Vec<&'a Point2D>) -> Vec<&'a Point2D> {
         }
         s.push(&input_set[i])
     }
+    println!("{:?}", s);
+    println!("");
     s
 }
 
@@ -216,13 +218,18 @@ fn graham_scan<'a>(input_set: &Vec<&'a Point2D>) -> Vec<&'a Point2D> {
 
 #[test]
 fn test_graham_scan() {
-    let point1 = Point2D::new(1.0, 2.0);
-    let point2 = Point2D::new(1.0, 3.0);
-    let point3 = Point2D::new(1.0, 4.0);
-    let point4 = Point2D::new(1.0, 5.0);
-    let point5 = Point2D::new(1.0, 6.0);
-    assert_eq!(
-        vec![&point1, &point2, &point3, &point4, &point5],
-        graham_scan(&vec![&point1, &point2, &point3, &point4, &point5])
-    )
+    let mut points: Vec<Point2D> = Vec::new();
+    // These points form a triangle, so only the 3 vertices should be in the convex hull.
+    for i in 1..10 {
+        points.push(Point2D::new(i as f64, i as f64));
+        points.push(Point2D::new(i as f64, (-i) as f64));
+        points.push(Point2D::new(i as f64, 0.0));
+    }
+    points.push(Point2D::new(0.0, 0.0));
+    let hull = graham_scan(&points);
+    let h1 = Point2D::new(0.0, 0.0);
+    let h2 = Point2D::new(9.0, -9.0);
+    let h3 = Point2D::new(9.0, 9.0);
+    let hull_should_be = vec![&h1, &h2, &h3];
+    assert_eq!(hull, hull_should_be);
 }
