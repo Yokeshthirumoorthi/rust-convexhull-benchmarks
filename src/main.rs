@@ -10,14 +10,36 @@ fn main() {
 //CH(Q). When the algorithm terminates, stack S cpntains
 //exactly the vertices of CH(Q), in counter clockwise
 //order of their appearance on the boundary
-fn graham_scan(inputSet: &Vec<types::Point2D>) {
+fn graham_scan<'a>(inputSet: &Vec<&'a types::Point2D>) -> Vec<&'a types::Point2D> {
     //panic when inputset has less than or equalto 2 elements
-    assert!(inputSet.len() > 2)
+    assert!(inputSet.len() > 2);
+    //initialize the stack that will maintain the candidate points
+    let mut s: Vec<&types::Point2D> = Vec::new();
+    s.push(&inputSet[0]);
+    s.push(&inputSet[1]);
+    s.push(&inputSet[2]);
+    for i in 3..inputSet.len() {
+        s.push(&inputSet[i])
+    }
+    s
 }
 
+// #[test]
+// #[should_panic]
+// fn test_graham_scan_with_smallinput() {
+//     let point = types::Point2D::new(1.0, 2.0);
+//     graham_scan(&vec![point])
+// }
+
 #[test]
-#[should_panic]
-fn graham_scan_with_smallinput() {
-    let point = types::Point2D::new(1.0, 2.0);
-    graham_scan(&vec![point])
+fn test_graham_scan() {
+    let point1 = types::Point2D::new(1.0, 2.0);
+    let point2 = types::Point2D::new(1.0, 3.0);
+    let point3 = types::Point2D::new(1.0, 4.0);
+    let point4 = types::Point2D::new(1.0, 5.0);
+    let point5 = types::Point2D::new(1.0, 6.0);
+    assert_eq!(
+        vec![&point1, &point2, &point3, &point4, &point5],
+        graham_scan(&vec![&point1, &point2, &point3, &point4, &point5])
+    )
 }
