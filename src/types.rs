@@ -47,6 +47,18 @@ impl Point2D {
             }
         }
     }
+
+    // Determine the turn direction around the corner
+    // formed by the points a, b, and c. Return a
+    // positive number for a left turn and negative
+    // for a right turn.
+    pub fn ccw(&self, pointB: &Point2D, pointC: &Point2D) -> bool {
+        println!(
+            "{}",
+            (pointB.x - self.x) * (pointC.y - self.y) - (pointB.y - self.y) * (pointC.x - self.x)
+        );
+        (pointB.x - self.x) * (pointC.y - self.y) - (pointB.y - self.y) * (pointC.x - self.x) > 0.0
+    }
 }
 
 //a type for storing additional properties of a point
@@ -94,6 +106,17 @@ impl Fatpoint2D {
 #[test]
 fn test_add_new_points() {
     assert_eq!(Point2D { x: 1.0, y: 2.0 }, Point2D::new(1.0, 2.0));
+}
+#[test]
+fn test_ccw() {
+    let pointA = Point2D::new(1.0, 1.0);
+    let pointB = Point2D::new(2.0, 2.0);
+    let pointC = Point2D::new(3.0, 2.5);
+    assert_eq!(false, pointA.ccw(&pointB, &pointC));
+    let pointA = Point2D::new(0.0, 0.0);
+    let pointB = Point2D::new(1.0, 1.0);
+    let pointC = Point2D::new(2.0, 0.0);
+    assert_eq!(true, pointA.ccw(&pointC, &pointB));
 }
 #[test]
 fn test_add_new_points_details() {
