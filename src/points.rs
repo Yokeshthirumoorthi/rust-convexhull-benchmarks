@@ -67,4 +67,38 @@ impl Point2D {
             }
         }
     }
+
+    ///Determine the turn direction around the corner
+    /// formed by the points a, b and c.
+    ///
+    /// Return true for counterclockwise turn
+    /// and false for colinearity or clockwise turns.
+    ///
+    /// #Examples
+    /// ```
+    /// let point_a = Point2D::new(1.0, 1.0);
+    /// let point_b = Point2D::new(2.0, 2.0);
+    /// let point_c = Point2D::new(3.0, 2.5);
+    /// assert_eq!(false, point_a.ccw(&point_b, &point_c));
+    ///
+    /// let point_a = Point2D::new(0.0, 0.0);
+    /// let point_b = Point2D::new(1.0, 1.0);
+    /// let point_c = Point2D::new(2.0, 0.0);
+    /// assert_eq!(true, point_a.ccw(&point_c, &point_b));
+    /// ```
+    ///
+    pub fn ccw(&self, point_b: &Point2D, point_c: &Point2D) -> bool {
+        (point_b.x - self.x) * (point_c.y - self.y) - (point_b.y - self.y) * (point_c.x - self.x)
+            > 0.0
+    }
+
+    ///Determine the distance between 2 points
+    fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
+        ((point1.x - point2.x).powi(2) + (point1.y - point2.y).powi(2)).sqrt()
+    }
+
+    ///Determine the polarangle between 2 points
+    fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
+        (point2.y - point1.y).atan2(point2.x - point1.x)
+    }
 }
