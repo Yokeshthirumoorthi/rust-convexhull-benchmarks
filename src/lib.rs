@@ -1,2 +1,2 @@
-mod points;
-mod convexhull;
+pub mod points;
+pub mod convexhull;
