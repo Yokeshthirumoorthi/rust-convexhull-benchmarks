@@ -5,11 +5,6 @@
 ///With x and y coordinate, a point2D
 ///is a point in 2D euclidean space
 ///
-/// #Example
-///
-/// ```
-/// let point = Point2D {x: 1.0, y: 2.0}
-/// ```
 #[derive(Debug)]
 pub struct Point2D {
     /// x-coordinate value
@@ -33,11 +28,6 @@ impl PartialEq for Point2D {
 /// using the point
 impl Point2D {
     ///Constructor for Point2D
-    ///
-    /// #Example
-    /// ```
-    /// let point = Point2D::new(1.0,2.0)
-    /// ```
     pub fn new(x: f64, y: f64) -> Point2D {
         Point2D { x, y }
     }
@@ -74,19 +64,6 @@ impl Point2D {
     /// Return true for counterclockwise turn
     /// and false for colinearity or clockwise turns.
     ///
-    /// #Examples
-    /// ```
-    /// let point_a = Point2D::new(1.0, 1.0);
-    /// let point_b = Point2D::new(2.0, 2.0);
-    /// let point_c = Point2D::new(3.0, 2.5);
-    /// assert_eq!(false, point_a.ccw(&point_b, &point_c));
-    ///
-    /// let point_a = Point2D::new(0.0, 0.0);
-    /// let point_b = Point2D::new(1.0, 1.0);
-    /// let point_c = Point2D::new(2.0, 0.0);
-    /// assert_eq!(true, point_a.ccw(&point_c, &point_b));
-    /// ```
-    ///
     pub fn ccw(&self, point_b: &Point2D, point_c: &Point2D) -> bool {
         (point_b.x - self.x) * (point_c.y - self.y) - (point_b.y - self.y) * (point_c.x - self.x)
             > 0.0
@@ -110,12 +87,6 @@ impl Point2D {
 /// Using this information we could sort the points
 /// in the input set.
 ///
-/// #Example
-///
-/// ```
-/// let vetrex = Fatpoint2D {
-///     x: 1.0, y: 2.0, distance: 0.0, angle: 0.0 }
-/// ```
 #[derive(Debug, PartialEq)]
 struct Fatpoint2D {
     x: f64,
