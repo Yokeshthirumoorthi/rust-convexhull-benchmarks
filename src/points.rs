@@ -102,3 +102,33 @@ impl Point2D {
         (point2.y - point1.y).atan2(point2.x - point1.x)
     }
 }
+
+///An extended representation of a point
+///
+/// We store additional information to a
+/// point2d with respect to the vertex point.
+/// Using this information we could sort the points
+/// in the input set.
+///
+/// #Example
+///
+/// ```
+/// let vetrex = Fatpoint2D {
+///     x: 1.0, y: 2.0, distance: 0.0, angle: 0.0 }
+/// ```
+#[derive(Debug, PartialEq)]
+struct Fatpoint2D {
+    x: f64,
+    y: f64,
+    distance: f64,
+    angle: f64,
+}
+
+use std::cmp::Ordering;
+impl PartialOrd for Fatpoint2D {
+    /// A handy method to sort points based on their angle
+    /// and distance from the vertex point
+    fn partial_cmp(&self, other: &Fatpoint2D) -> Option<Ordering> {
+        self.angle.partial_cmp(&other.angle)
+    }
+}
