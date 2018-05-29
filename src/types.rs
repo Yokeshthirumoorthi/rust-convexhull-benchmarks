@@ -13,17 +13,6 @@ pub struct Fatpoint2D {
     angle: f64,
 }
 
-// TODO: this function is private only for fatpoint2d implementation
-//compute euclidean distance between 2 points
-fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
-    ((point1.x - point2.x).powi(2) + (point1.y - point2.y).powi(2)).sqrt()
-}
-// TODO: this function is private only for fatpoint2d implementation
-//compute polar angle between 2 points
-fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
-    (point2.y - point1.y).atan2(point2.x - point1.x)
-}
-
 impl PartialOrd for Fatpoint2D {
     fn partial_cmp(&self, other: &Fatpoint2D) -> Option<Ordering> {
         self.angle.partial_cmp(&other.angle)
@@ -77,16 +66,6 @@ fn test_fat_pt_cmp() {
 }
 
 //given a set of points, pick the leftmost point
-fn pick_vertex(input_set: &Vec<Point2D>) -> &Point2D {
-    //panic if there are no elements in the input_set
-    assert!(input_set.len() > 0);
-    //initialize the vertex point to be the first point in input_set
-    let mut vertex_point = &input_set[0];
-    for point in input_set {
-        vertex_point = &point.pickleft(vertex_point);
-    }
-    vertex_point
-}
 
 #[test]
 fn test_add_pick_vertex() {

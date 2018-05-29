@@ -1,4 +1,5 @@
 //! Find the convex hull using various methods
+use inputset::*;
 use points::Point2D;
 
 /// Solve the convexhull problem using Graham-Scan
@@ -9,25 +10,20 @@ use points::Point2D;
 ///pops from the stack each point that is not a vertex of
 ///CH(Q). When the algorithm terminates, stack S cpntains
 ///exactly the vertices of CH(Q), in counter clockwise
-///order of their appearance on the boundary
-pub fn graham_scan<'a>(input_set: &Vec<Point2D>) -> Vec<&Point2D> {
+///order of their appearance on the boundary.
+pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<&Point2D> {
     //find the pivot point in the input set with the
     //minimum y-coordinate, or the leftmost such point
     //in case of tie and set the pivot point as first
     //element of the set
-
-    // input_set.set_pivot();
-
+    set_pivot(input_set);
     //sort the remianing elements in input set by polar
     //angle in counter clockwise order around pivot point.
     //(if more than one point has the same angle, remove all
     //but the one that is farthest from pivot point)
-
-    //input_set.sort_by_polar_angle_ccw();
-
+    sort_by_polar_angle_ccw(input_set);
     //panic when input_set has less than or equalto 2 elements
     assert!(input_set.len() > 2);
-
     //initialize the stack that will maintain the candidate points
     let mut hull_points: Vec<&Point2D> = Vec::new();
     hull_points.push(&input_set[0]);

@@ -6,7 +6,7 @@ use rustalgo::convexhull::*;
 #[should_panic]
 fn test_graham_scan_with_smallinput() {
     let point = Point2D::new(1.0, 2.0);
-    graham_scan(&vec![point]);
+    graham_scan(&mut vec![point]);
 }
 
 #[test]
@@ -20,7 +20,7 @@ fn test_graham_scan() {
         points.push(Point2D::new(i as f64, 0.0));
     }
     points.push(Point2D::new(0.0, 0.0));
-    let hull = graham_scan(&points);
+    let hull = graham_scan(&mut points);
     let h1 = Point2D::new(0.0, 0.0);
     let h2 = Point2D::new(9.0, -9.0);
     let h3 = Point2D::new(9.0, 9.0);
