@@ -105,14 +105,18 @@ impl PartialOrd for Fatpoint2D {
 }
 
 impl Fatpoint2D {
-    //create properties for a point from another point usually the vertex
-    fn new(point: &Point2D, vertex: &Point2D) -> Fatpoint2D {
+    /// create properties for a point from another point usually the vertex
+    pub fn new(point: &Point2D, vertex: &Point2D) -> Fatpoint2D {
         Fatpoint2D {
             x: point.x,
             y: point.y,
             distance: point.compute_distance(&vertex),
             angle: point.compute_angle(&vertex),
         }
+    }
+    /// canverts a fatpoint back to point2d
+    pub fn to_point(&self) -> Point2D {
+        Point2D::new(self.x, self.y)
     }
 }
 

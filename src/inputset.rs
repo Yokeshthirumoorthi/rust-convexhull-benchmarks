@@ -32,7 +32,23 @@ pub fn set_pivot(input_set: &mut Vec<Point2D>) -> &Vec<Point2D> {
 ///angle in counter clockwise order around pivot point.
 ///(if more than one point has the same angle, remove all
 ///but the one that is farthest from pivot point)
-pub fn sort_polar_angle_ccw(_input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
-    //TODO: implement the functionality
-    Vec::new()
+pub fn sort_polar_angle_ccw(input_set: &Vec<Point2D>) -> Vec<Point2D> {
+    let mut fat_pt_vec: Vec<Fatpoint2D> = Vec::new();
+    //convert all the point2D as FatPoints
+    if let Some((first, elements)) = input_set.split_first() {
+        fat_pt_vec = elements.iter()
+                        .map(|point| Fatpoint2D::new(point, &first))
+                        .collect();
+    };                     
+    //sort the fatpoint vec
+    fat_pt_vec.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    //convert back to point2d
+    let mut output = Vec::new();
+    if let Some(first) = input_set.get(0) {
+        output.push(Fatpoint2D::new(first, &first).to_point())
+    }
+    for fat_point in fat_pt_vec.iter() {
+        output.push(fat_point.to_point());
+    }
+    output
 }
