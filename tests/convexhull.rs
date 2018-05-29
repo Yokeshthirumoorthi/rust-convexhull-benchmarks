@@ -3,7 +3,6 @@ use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
 #[test]
-#[ignore]
 #[should_panic]
 fn test_graham_scan_with_smallinput() {
     let point = Point2D::new(1.0, 2.0);
