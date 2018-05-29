@@ -52,6 +52,7 @@ pub fn sort_polar_angle_ccw(input_set: &Vec<Point2D>) -> Vec<Point2D> {
     for fat_point in fat_pt_vec.iter() {
         output.push(fat_point.to_point());
     }
+    // println!("Line Polar Angle:{:?}\n", output);
     output
 }
 

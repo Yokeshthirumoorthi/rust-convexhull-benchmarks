@@ -5,7 +5,7 @@
 ///With x and y coordinate, a point2D
 ///is a point in 2D euclidean space
 ///
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Point2D {
     /// x-coordinate value
     x: f64,

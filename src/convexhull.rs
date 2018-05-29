@@ -11,33 +11,35 @@ use points::Point2D;
 ///CH(Q). When the algorithm terminates, stack S cpntains
 ///exactly the vertices of CH(Q), in counter clockwise
 ///order of their appearance on the boundary.
-pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<&Point2D> {
+pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //find the pivot point in the input set with the
     //minimum y-coordinate, or the leftmost such point
     //in case of tie and set the pivot point as first
     //element of the set
     set_pivot(input_set);
+    // println!("Line 1:{:?}\n", input_set);
     //sort the remianing elements in input set by polar
     //angle in counter clockwise order around pivot point.
     //(if more than one point has the same angle, remove all
     //but the one that is farthest from pivot point)
-    sort_polar_angle_ccw(input_set);
+    let sorted_input_set = sort_polar_angle_ccw(input_set);
+    // println!("Line 2:{:?}\n", sorted_input_set);
     //panic when input_set has less than or equalto 2 elements
     assert!(input_set.len() > 2);
     //initialize the stack that will maintain the candidate points
-    let mut hull_points: Vec<&Point2D> = Vec::new();
-    hull_points.push(&input_set[0]);
-    hull_points.push(&input_set[1]);
-    hull_points.push(&input_set[2]);
-    for i in 3..input_set.len() {
+    let mut hull_points: Vec<Point2D> = Vec::new();
+    hull_points.push(sorted_input_set[0]);
+    hull_points.push(sorted_input_set[1]);
+    hull_points.push(sorted_input_set[2]);
+    for i in 3..sorted_input_set.len() {
         // println!("NextPoint: {:?}\n", hull_points);
         while hull_points[hull_points.len() - 2]
-            .ccw(&hull_points[hull_points.len() - 1], &input_set[i])
+            .ccw(&hull_points[hull_points.len() - 1], &sorted_input_set[i])
         {
             hull_points.pop();
             // println!("PopPoint: {:?}\n", hull_points);
         }
-        hull_points.push(&input_set[i])
+        hull_points.push(sorted_input_set[i])
     }
     hull_points
 }
