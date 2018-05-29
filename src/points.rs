@@ -65,9 +65,6 @@ impl Point2D {
     /// and false for colinearity or clockwise turns.
     ///
     pub fn ccw(&self, point_b: &Point2D, point_c: &Point2D) -> bool {
-        // println!("Base: {:?}", self);
-        // println!("Point 1: {:?}", point_b);
-        // println!("Point 2: {:?}\n", point_c);
         (point_b.x - self.x) * (point_c.y - self.y) - (point_b.y - self.y) * (point_c.x - self.x)
              > 0.0
     }
