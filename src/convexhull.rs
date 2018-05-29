@@ -33,7 +33,7 @@ pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     hull_points.push(sorted_input_set[2]);
     for i in 3..sorted_input_set.len() {
         // println!("NextPoint: {:?}\n", hull_points);
-        while hull_points[hull_points.len() - 2]
+        while !hull_points[hull_points.len() - 2]
             .ccw(&hull_points[hull_points.len() - 1], &sorted_input_set[i])
         {
             hull_points.pop();

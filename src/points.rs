@@ -69,7 +69,7 @@ impl Point2D {
         // println!("Point 1: {:?}", point_b);
         // println!("Point 2: {:?}\n", point_c);
         (point_b.x - self.x) * (point_c.y - self.y) - (point_b.y - self.y) * (point_c.x - self.x)
-            > 0.0
+             > 0.0
     }
 
     ///Determine the distance between 2 points
@@ -117,9 +117,18 @@ impl Fatpoint2D {
             angle: point.compute_angle(&vertex),
         }
     }
+    
     /// canverts a fatpoint back to point2d
     pub fn to_point(&self) -> Point2D {
         Point2D::new(self.x, self.y)
+    }
+
+    pub fn partial_cmp_distance(&self, other: &Fatpoint2D) -> Option<Ordering> {
+        self.distance.partial_cmp(&other.distance)
+    }
+
+    pub fn eq_polar_angle(&self, other: &Fatpoint2D) -> bool {
+        self.angle == other.angle
     }
 }
 

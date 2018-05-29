@@ -21,9 +21,9 @@ fn test_graham_scan() {
     }
     points.push(Point2D::new(0.0, 0.0));
     let hull = graham_scan(&mut points);
-    let h1 = Point2D::new(0.0, 0.0);
-    let h2 = Point2D::new(9.0, -9.0);
-    let h3 = Point2D::new(9.0, 9.0);
+    let h1 = Point2D::new(9.0, -9.0);
+    let h2 = Point2D::new(9.0, 9.0);
+    let h3 = Point2D::new(0.0, 0.0);
     let hull_should_be = vec![h1, h2, h3];
     assert_eq!(hull, hull_should_be);
 }
