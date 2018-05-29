@@ -103,3 +103,9 @@ impl PartialOrd for Fatpoint2D {
         self.angle.partial_cmp(&other.angle)
     }
 }
+
+//some test cases for point2D data type.
+#[test]
+fn test_add_new_points() {
+    assert_eq!(Point2D { x: 1.0, y: 2.0 }, Point2D::new(1.0, 2.0));
+}
