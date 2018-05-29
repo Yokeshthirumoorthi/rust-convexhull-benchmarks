@@ -27,3 +27,13 @@ pub fn sort_by_polar_angle_ccw(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //TODO: implement the functionality
     Vec::new()
 }
+
+#[test]
+fn test_pick_vertex() {
+    let point_a = Point2D::new(1.0, 2.0);
+    let point_b = Point2D::new(1.0, 3.0);
+    let point_c = Point2D::new(1.0, 4.0);
+    let point_d = Point2D::new(1.0, 2.0);
+    let input_set = vec![point_a, point_b, point_c];
+    assert_eq!(&point_d, pick_vertex(&input_set));
+}

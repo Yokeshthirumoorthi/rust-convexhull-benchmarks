@@ -70,13 +70,13 @@ impl Point2D {
     }
 
     ///Determine the distance between 2 points
-    fn compute_distance(point1: &Point2D, point2: &Point2D) -> f64 {
-        ((point1.x - point2.x).powi(2) + (point1.y - point2.y).powi(2)).sqrt()
+    fn compute_distance(&self, point2: &Point2D) -> f64 {
+        ((self.x - point2.x).powi(2) + (self.y - point2.y).powi(2)).sqrt()
     }
 
     ///Determine the polarangle between 2 points
-    fn compute_angle(point1: &Point2D, point2: &Point2D) -> f64 {
-        (point2.y - point1.y).atan2(point2.x - point1.x)
+    fn compute_angle(&self, point2: &Point2D) -> f64 {
+        (point2.y - self.y).atan2(point2.x - self.x)
     }
 }
 
@@ -88,7 +88,7 @@ impl Point2D {
 /// in the input set.
 ///
 #[derive(Debug, PartialEq)]
-struct Fatpoint2D {
+pub struct Fatpoint2D {
     x: f64,
     y: f64,
     distance: f64,
@@ -104,8 +104,54 @@ impl PartialOrd for Fatpoint2D {
     }
 }
 
+impl Fatpoint2D {
+    //create properties for a point from another point usually the vertex
+    fn new(point: &Point2D, vertex: &Point2D) -> Fatpoint2D {
+        Fatpoint2D {
+            x: point.x,
+            y: point.y,
+            distance: point.compute_distance(&vertex),
+            angle: point.compute_angle(&vertex),
+        }
+    }
+}
+
 //some test cases for point2D data type.
 #[test]
-fn test_add_new_points() {
+fn test_new_2d_point() {
     assert_eq!(Point2D { x: 1.0, y: 2.0 }, Point2D::new(1.0, 2.0));
+}
+
+#[test]
+fn test_new_fat_point() {
+    let point_a = Point2D::new(1.0, 2.0);
+    let point_b = Point2D::new(1.0, 3.0);
+    assert_eq!(
+        Fatpoint2D {
+            x: 1.0,
+            y: 2.0,
+            distance: 1.0,
+            angle: 1.5707963267948966,
+        },
+        Fatpoint2D::new(&point_a, &point_b)
+    );
+}
+
+#[test]
+fn test_fat_point_cmp() {
+    let fat_point_a = Fatpoint2D {
+        x: 1.0,
+        y: 2.0,
+        distance: 10.0,
+        angle: 10.0,
+    };
+    let fat_point_b = Fatpoint2D {
+        x: 1.0,
+        y: 3.0,
+        distance: 10.0,
+        angle: 1.0,
+    };
+    let mut set = vec![&fat_point_a, &fat_point_b];
+    set.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    assert_eq!(vec![&fat_point_b, &fat_point_a], set);
 }
