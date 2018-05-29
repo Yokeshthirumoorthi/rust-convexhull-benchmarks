@@ -1,11 +1,18 @@
+//! Collection of functions that operates and
+//! modifies the input set to conveniently
+//! determine the hull points
 use points::*;
 
+///Converts any raw point tuple to Point2D type
+/// and pushes it to the inputset
 pub fn push(inputset: &mut Vec<Point2D>, point: (f64, f64)) -> &Vec<Point2D> {
     let point = Point2D::new(point.0, point.1);
     inputset.push(point);
     inputset
 }
 
+///Finds the point in input set with least y-coordinate or the
+///left most in case of a match
 fn pick_vertex(input_set: &Vec<Point2D>) -> &Point2D {
     //panic if there are no elements in the input_set
     assert!(input_set.len() > 0);
@@ -18,12 +25,18 @@ fn pick_vertex(input_set: &Vec<Point2D>) -> &Point2D {
     vertex_point
 }
 
+/// Sets the pivot point of the inputset
+/// as the first element of the input set.
 pub fn set_pivot(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //TODO: implement the functionality
     Vec::new()
 }
 
-pub fn sort_by_polar_angle_ccw(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+///Sorts the  elements of input set by polar
+///angle in counter clockwise order around pivot point.
+///(if more than one point has the same angle, remove all
+///but the one that is farthest from pivot point)
+pub fn sort_polar_angle_ccw(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //TODO: implement the functionality
     Vec::new()
 }
