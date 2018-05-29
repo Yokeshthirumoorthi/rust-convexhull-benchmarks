@@ -10,7 +10,7 @@ fn test_graham_scan_with_smallinput() {
 }
 
 #[test]
-#[ignore]
+// #[ignore]
 fn test_graham_scan() {
     let mut points: Vec<Point2D> = Vec::new();
     // These points form a triangle, so only the 3 vertices should be in the convex hull.
@@ -24,6 +24,6 @@ fn test_graham_scan() {
     let h1 = Point2D::new(0.0, 0.0);
     let h2 = Point2D::new(9.0, -9.0);
     let h3 = Point2D::new(9.0, 9.0);
-    let hull_should_be = vec![&h1, &h2, &h3];
+    let hull_should_be = vec![h1, h2, h3];
     assert_eq!(hull, hull_should_be);
 }
