@@ -10,7 +10,7 @@ fn test_graham_scan_with_smallinput() {
 }
 
 #[test]
-#[ignore]
+// #[ignore]
 fn test_graham_scan() {
     let mut points: Vec<Point2D> = Vec::new();
     // These points form a triangle, so only the 3 vertices should be in the convex hull.
