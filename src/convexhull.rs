@@ -21,7 +21,7 @@ pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<&Point2D> {
     //angle in counter clockwise order around pivot point.
     //(if more than one point has the same angle, remove all
     //but the one that is farthest from pivot point)
-    sort_by_polar_angle_ccw(input_set);
+    sort_polar_angle_ccw(input_set);
     //panic when input_set has less than or equalto 2 elements
     assert!(input_set.len() > 2);
     //initialize the stack that will maintain the candidate points
