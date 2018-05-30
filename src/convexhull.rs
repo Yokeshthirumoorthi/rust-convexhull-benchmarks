@@ -2,7 +2,7 @@
 use inputset::*;
 use points::Point2D;
 
-/// Solve the convexhull problem using Graham-Scan
+/// Solves the convexhull problem using Graham-Scan
 ///
 ///This method solves the convex-hull by maintaining a stack S
 ///of candidate points. It pushes each point of the input
@@ -11,7 +11,7 @@ use points::Point2D;
 ///CH(Q). When the algorithm terminates, stack S cpntains
 ///exactly the vertices of CH(Q), in counter clockwise
 ///order of their appearance on the boundary.
-pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+pub fn graham_scan(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //find the pivot point in the input set with the
     //minimum y-coordinate, or the leftmost such point
     //in case of tie and set the pivot point as first
@@ -39,6 +39,45 @@ pub fn graham_scan<'a>(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
             hull_points.pop();
         }
         hull_points.push(sorted_input_set[i])
+    }
+    hull_points
+}
+
+/// Solves the convexhull problem using Jarvis-March
+///
+pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+    //find the pivot point in the input set with the
+    //minimum y-coordinate, or the leftmost such point
+    //in case of tie and set the pivot point as first
+    //element of the set
+    set_pivot(input_set);
+
+    //sort the remianing elements in input set by polar
+    //angle in counter clockwise order around pivot point.
+    //(if more than one point has the same angle, remove all
+    //but the one that is farthest from pivot point)
+    let sorted_input_set = sort_polar_angle_ccw(input_set);
+
+    //panic when input_set has less than or equalto 2 elements
+    assert!(input_set.len() > 2);
+
+    let mut last_known_hull_point = sorted_input_set[0];
+    //initialize the stack that will maintain the candidate points
+    let mut hull_points: Vec<Point2D> = Vec::new();
+    hull_points.push(last_known_hull_point);
+    for _i in 0..sorted_input_set.len() {
+        let p_i = last_known_hull_point;
+        let mut end_point = sorted_input_set[0];
+        for j in 1..sorted_input_set.len() {
+            if end_point == last_known_hull_point || sorted_input_set[j].ccw(&p_i, &end_point) {
+                end_point = sorted_input_set[j];
+            }
+        }
+        if end_point == hull_points[0] {
+            break;
+        }
+        hull_points.push(end_point);
+        last_known_hull_point = end_point;
     }
     hull_points
 }
