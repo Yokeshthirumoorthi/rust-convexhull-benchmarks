@@ -5,3 +5,4 @@ authors = ["Yokesh Thirumoorthi <Yokeshthirumoorthi@gmail.com>"]
 
 [dependencies]
 rand = "0.3"
+plotlib = {git = "https://github.com/milliams/plotlib"}
