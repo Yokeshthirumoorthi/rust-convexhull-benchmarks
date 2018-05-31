@@ -2,7 +2,7 @@
 
 ///Defines possible shapes for the collections of points.
 pub enum Shape {
-    Circle,
+    Circle {radius: f64, center: Point2D},
     Rectangle,
     Triangle
 }
