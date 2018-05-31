@@ -81,3 +81,28 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     }
     hull_points
 }
+
+/// Solves the convexhull problem using chans-algorithm
+///
+pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+    set_pivot(input_set);
+    let p_1 = input_set[0];
+    for t in 1..(input_set.len() as f64).log2().log2().ceil() as u32 {
+        let m = 2_i32.pow(2).pow(t);
+        let mut hull_points: Vec<Point2D> = Vec::new();
+        hull_points.push(p_1);
+        let mut q_k = input_set.chunks(m as usize);
+        let mut c_k: Vec<Vec<Point2D>> = Vec::new();
+        for k in q_k {
+            c_k.push(graham_scan(&mut k.to_vec()));
+            for i in 1..m {
+                for k in c_k {
+                    //TODO: Jarvis scan on subsets
+                }
+                println!("{}", i);
+            }
+        }
+    }
+    let mut hull_points: Vec<Point2D> = Vec::new();
+    hull_points
+}
