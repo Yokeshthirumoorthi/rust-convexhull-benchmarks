@@ -78,6 +78,11 @@ impl Point2D {
     fn compute_angle(&self, point2: &Point2D) -> f64 {
         (point2.y - self.y).atan2(point2.x - self.x)
     }
+
+    ///Converts a Point2D back to a tuple
+    pub fn to_tuple(&self) -> (f64, f64) {
+        (self.x, self.y)
+    }
 }
 
 ///An extended representation of a point
