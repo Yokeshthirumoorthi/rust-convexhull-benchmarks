@@ -87,22 +87,37 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     set_pivot(input_set);
     let p_1 = input_set[0];
+    let p_0 = Point2D::new(-10.0, -10.0);
     for t in 1..(input_set.len() as f64).log2().log2().ceil() as u32 {
         let m = 2_i32.pow(2).pow(t);
-        let mut hull_points: Vec<Point2D> = Vec::new();
-        hull_points.push(p_1);
         let mut q_k = input_set.chunks(m as usize);
         let mut c_k: Vec<Vec<Point2D>> = Vec::new();
         for k in q_k {
             c_k.push(graham_scan(&mut k.to_vec()));
-            for i in 1..m {
-                for k in c_k {
-                    //TODO: Jarvis scan on subsets
+        }
+        let mut hull_points: Vec<Point2D> = Vec::new();
+        hull_points.push(p_1);
+        for i in 0..(m - 1) as usize {
+            let mut q_i_k: Vec<Point2D> = Vec::new();
+            for k in &c_k {
+                if i == 0 {
+                    q_i_k.push(jarvis_binary_search(&p_0, &hull_points[i], k));
+                } else {
+                    q_i_k.push(jarvis_binary_search(&hull_points[i-1], &hull_points[i], k));
                 }
-                println!("{}", i);
+            }
+            // let next_hull_point = hull_points[0];
+            let next_hull_point = if i == 0 {
+                jarvis_binary_search(&p_0, &hull_points[i], &q_i_k)
+            } else {
+                jarvis_binary_search(&hull_points[i-1], &hull_points[i], &q_i_k)
+            };
+            if next_hull_point == hull_points[0] {
+                return hull_points;
+            } else {
+                hull_points.push(next_hull_point);
             }
         }
     }
-    let mut hull_points: Vec<Point2D> = Vec::new();
-    hull_points
+    Vec::new()
 }

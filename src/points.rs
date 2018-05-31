@@ -168,3 +168,7 @@ fn test_fat_point_cmp() {
     set.sort_by(|a, b| a.partial_cmp(b).unwrap());
     assert_eq!(vec![&fat_point_b, &fat_point_a], set);
 }
+
+pub fn orietation(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f64 {
+    (point_b.x - point_a.x) * (point_c.y - point_a.y) - (point_b.y - point_a.y) * (point_c.x - point_a.x)
+}

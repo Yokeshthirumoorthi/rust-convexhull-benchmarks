@@ -62,6 +62,6 @@ fn test_chans_algorithm() {
     let h1 = Point2D::new(9.0, -9.0);
     let h2 = Point2D::new(9.0, 9.0);
     let h3 = Point2D::new(0.0, 0.0);
-    let hull_should_be = vec![h1, h3, h2];
+    let hull_should_be = vec![h1, h2, h3];
     assert_eq!(hull, hull_should_be);
 }
