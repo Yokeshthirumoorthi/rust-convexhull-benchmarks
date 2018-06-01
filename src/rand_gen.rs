@@ -1,6 +1,15 @@
-//! Creates random points within a given range 
+//! Creates random points within a given shape and its boundaries 
 
-///Defines possible shapes for the collections of points.
+///Shape types within which we generate the randon points.
+/// 
+/// # Examples
+/// 
+/// ```
+/// extern crate rustalgo;
+/// use rustalgo::points::Point2D;
+/// let circle = Shape::Circle {radius: 1.0, center: Point2D::new(0.0,0.0)};
+/// assert_eq!(Circle {radius: 1.0, center: Point2D {x: 0.0, y: 0.0} }, circle);
+/// ```
 pub enum Shape {
     Circle {radius: f64, center: Point2D},
     Rectangle {height: f64, width: f64, center: Point2D},
@@ -10,8 +19,8 @@ pub enum Shape {
 use points::Point2D;
 
 extern crate rand;
-use rand_gen::rand::distributions::{IndependentSample, Range};
-use rand_gen::rand::random;
+use rand_gen::rand::distributions::{Range};
+// use rand_gen::rand::random;
 
 use std::f64;
 // use plots::*;
@@ -19,8 +28,8 @@ use std::f64;
 ///Generates n number of random points based on the
 /// shape constraint and returns them as collection of
 /// Point2D
-pub fn generate(number_of_points: u32, between: Range<f64>, shape: Shape) -> Vec<Point2D> {
-    let mut range = rand::thread_rng();
+pub fn generate(_number_of_points: u32, _between: Range<f64>, _shape: Shape) -> Vec<Point2D> {
+    // let mut range = rand::thread_rng();
     let mut output: Vec<Point2D> = Vec::new();
 
     // for _ in 0..number_of_points {
@@ -37,7 +46,7 @@ pub fn generate(number_of_points: u32, between: Range<f64>, shape: Shape) -> Vec
     //     let b = r*(t.sin());
     //     output.push(Point2D::new(a, b));
     // }
-    let center = (0., 0.);
+    // let center = (0., 0.);
     let r = 1.0;
     let mut f: f64 = 0.0;
     for _ in 0..36 {

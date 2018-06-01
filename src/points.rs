@@ -4,9 +4,13 @@
 ///
 ///With x and y coordinate, a point2D
 ///is a point in 2D euclidean space
-///#Example
+/// 
+/// #Example
+/// 
+/// ```
 /// let point = points::Point2D::new(1.0,2.0);
 /// assert_eq(Point2D {x: 1.0, y: 2.0}, point);
+/// ```
 #[derive(Debug, Copy, Clone)]
 pub struct Point2D {
     /// x-coordinate value
