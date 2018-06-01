@@ -3,8 +3,8 @@
 ///Defines possible shapes for the collections of points.
 pub enum Shape {
     Circle {radius: f64, center: Point2D},
-    Rectangle,
-    Triangle
+    Rectangle {height: f64, width: f64, center: Point2D},
+    Triangle {height: f64, width: f64, vertex: Point2D}
 }
 
 use points::Point2D;
