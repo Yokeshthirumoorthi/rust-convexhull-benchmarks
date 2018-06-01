@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["Yokesh Thirumoorthi <Yokeshthirumoorthi@gmail.com>"]
 
 [dependencies]
-rand = "0.3"
+rand = "0.5"
 plotlib = {git = "https://github.com/milliams/plotlib"}
