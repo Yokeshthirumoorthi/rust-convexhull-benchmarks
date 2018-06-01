@@ -1,21 +1,5 @@
 //! Creates random points within a given shape and its boundaries 
 
-///Shape types within which we generate the randon points.
-/// 
-/// # Examples
-/// 
-/// ```
-/// extern crate rustalgo;
-/// use rustalgo::points::Point2D;
-/// let circle = Shape::Circle {radius: 1.0, center: Point2D::new(0.0,0.0)};
-/// assert_eq!(Circle {radius: 1.0, center: Point2D {x: 0.0, y: 0.0} }, circle);
-/// ```
-pub enum Shape {
-    Circle {radius: f64, center: Point2D},
-    Rectangle {height: f64, width: f64, center: Point2D},
-    Triangle {height: f64, width: f64, vertex: Point2D}
-}
-
 use points::Point2D;
 
 extern crate rand;
@@ -24,6 +8,49 @@ use rand_gen::rand::distributions::{Range};
 
 use std::f64;
 // use plots::*;
+
+/// Shapes within which we generate the randon points.
+/// 
+/// # Examples
+/// 
+/// ```
+/// use rustalgo::points::Point2D;
+/// let circle = rustalgo::rand_gen::Shape::Circle {radius: 1.0, center: Point2D::new(0.0,0.0)};
+/// assert_eq!(rustalgo::rand_gen::Shape::Circle.radius, 1.0);
+/// ```
+/// 
+pub enum Shape {
+    Circle {radius: f64, center: Point2D},
+    Rectangle {height: f64, width: f64, center: Point2D},
+    Triangle {height: f64, width: f64, vertex: Point2D}
+}
+
+/// Implementation methods for shapes
+/// 
+/// # Examples
+/// 
+/// ```
+/// use rustalgo::points::Point2D;
+/// let origin = Point2D::new(0.0, 0.0);
+/// let circle = Shape::new_circle(1.0, origin);
+/// assert_eq!(Shape::Circle {radius: 1.0, center: origin }, circle);
+/// let rectangle = Shape::new_rectangle(2.0, 2.0, origin);
+/// assert_eq!(Shape::Rectangle {height: 2.0, width: 2.0, center: origin }, circle);
+/// let triangle = Shape::new_triangle(1.0, 2.0, origin);
+/// assert_eq!(Shape::Triangle {height: 1.0, width: 2.0, center: origin }, circle);
+/// ```
+/// 
+impl Shape {
+    pub fn new_triangle(height: f64, width: f64, vertex: Point2D) -> Shape {
+        Shape::Triangle {height, width, vertex}
+    }
+    pub fn new_rectangle(height: f64, width: f64, center: Point2D) -> Shape {
+        Shape::Rectangle {height, width, center}
+    }
+    pub fn new_circle(radius: f64, center: Point2D) -> Shape {
+        Shape::Circle {radius, center}
+    }
+}
 
 ///Generates n number of random points based on the
 /// shape constraint and returns them as collection of
