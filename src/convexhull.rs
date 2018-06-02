@@ -99,15 +99,15 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     let p_1 = input_set[0];
     let p_0 = Point2D::new(-10.0, -10.0);
     for t in 1..(input_set.len() as f64).log2().log2().ceil() as u32 {
-        let m = 2_i32.pow(2).pow(t);
-        let mut q_k = input_set.chunks(m as usize);
+        let m = 2_i32.pow(2).pow(t) as usize;
+        let mut q_k = input_set.chunks(m);
         let mut c_k: Vec<Vec<Point2D>> = Vec::new();
         for k in q_k {
             c_k.push(graham_scan(&mut k.to_vec()));
         }
         let mut hull_points: Vec<Point2D> = Vec::new();
         hull_points.push(p_1);
-        for i in 0..(m - 1) as usize {
+        for i in 0..(m - 1) {
             let mut q_i_k: Vec<Point2D> = Vec::new();
             for k in &c_k {
                 if i == 0 {
