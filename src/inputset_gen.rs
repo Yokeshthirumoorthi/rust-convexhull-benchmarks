@@ -9,7 +9,11 @@ use inputset_gen::rand::prelude::*;
 /// 
 /// Idea is derived from this link
 /// https://stackoverflow.com/questions/5837572/generate-a-random-point-within-a-circle-uniformly/5838055#5838055
+/// 
+/// # Panics
+/// Panics if the total points is less than the number of vertices
 pub fn get_input_set(total_points: u64, number_of_vertex: u64) -> Vec<Point2D>{
+    assert!(total_points >= number_of_vertex);
     let mut output: Vec<Point2D> = Vec::new();
     let radius = 2.0;
     let number_of_fill_points = total_points - number_of_vertex;
