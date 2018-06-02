@@ -16,25 +16,27 @@ pub fn get_input_set(total_points: u64, number_of_vertex: u64) -> Vec<Point2D>{
     let mut theta: f64 = 0.0;
 
     for _ in 0..number_of_vertex {
-        //x = r cos(theta)
+        // x = r cos(theta)
         let x_co_ordinate = radius * (theta.cos());
-        //y = r sin(theta)
+        // y = r sin(theta)
         let y_co_ordinate = radius * (theta.sin());
-        //add the co-ordinates as Point2D to the output set
+        // add the co-ordinates as Point2D to the output set
         output.push(Point2D::new(x_co_ordinate, y_co_ordinate));
-        //increment theta for next vertex
+        // increment theta for next vertex
         theta += 2.0 * f64::consts::PI / number_of_vertex as f64;
     }
-
+    
+    let mut rng = thread_rng();
     for _ in 0..number_of_fill_points {
+        // calculate a random theta for each point
         theta = 2.0 * f64::consts::PI * random::<f64>();
-        let u = random::<f64>()+random::<f64>();
-        let radius = if u > 1.0  { 2.0 - u } else { u };
-        //x = r cos(theta)
+        // random radius in range (0, 1)
+        let radius: f64 = rng.gen();
+        // x = r cos(theta)
         let x_co_ordinate = radius * (theta.cos());
-        //y = r sin(theta)
+        // y = r sin(theta)
         let y_co_ordinate = radius * (theta.sin());
-        //add the co-ordinates as Point2D to the output set
+        // add the co-ordinates as Point2D to the output set
         output.push(Point2D::new(x_co_ordinate, y_co_ordinate));
     }
     // draw_plot(&output);
