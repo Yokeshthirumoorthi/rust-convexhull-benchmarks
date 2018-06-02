@@ -93,7 +93,23 @@ fn test_triangle() {
     assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_10000));
     // assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_1000000));
     // assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_10000000));
-    // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10));
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3], chans_algorithm(&mut input_set_10));
+}
+
+#[test]
+fn test_triangle1() {
+    let vertex_1 = Point2D::new(-1.0000000000000009, -1.7320508075688767); 
+    let vertex_2 = Point2D::new(2.0, 0.0); 
+    let vertex_3 = Point2D::new(-0.9999999999999996, 1.7320508075688776);   
+    let vertex_4 = Point2D::new(0.5601826150542302, -0.7298495252958463); 
+    let vertex_5 = Point2D::new(0.6835375132635281, 0.25164023466126156); 
+    let vertex_6 = Point2D::new(-0.000313294698257014, 0.0007211333498398356); 
+    let vertex_7 = Point2D::new(-0.2643480327658822, -0.10045163625158823); 
+    let vertex_8 = Point2D::new(-0.052465944990951086, -0.5964774994916163);
+    let mut input_set_8 = vec![vertex_1, vertex_2, vertex_3, vertex_4, vertex_5, vertex_6, vertex_7, vertex_8];
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3], graham_scan(&mut input_set_8));
+
+    assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_8));
 }
     
 #[test]
@@ -122,7 +138,7 @@ fn test_rectangle() {
     assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000));
     // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_1000000));
     // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000000));
-    // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10));
+    // assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], chans_algorithm(&mut input_set_10));
 }
 
 
@@ -175,5 +191,5 @@ fn test_circle() {
     assert_eq!(hull_should_be, jarvis_march(&mut input_set_10000));
     // assert_eq!(hull_should_be, jarvis_march(&mut input_set_1000000));
     // assert_eq!(hull_should_be, jarvis_march(&mut input_set_10000000));
-    // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10));
+    // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_100));
 }

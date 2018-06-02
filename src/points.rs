@@ -14,9 +14,9 @@
 #[derive(Debug, Copy, Clone)]
 pub struct Point2D {
     /// x-coordinate value
-    x: f64,
+    pub x: f64,
     /// y-coordinate value
-    y: f64,
+    pub y: f64,
 }
 
 impl PartialEq for Point2D {

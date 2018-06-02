@@ -67,3 +67,36 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
     }
     max_angled_point
 }
+
+// Splits the input set into chunks
+// 
+// Mostly there is a higher change for the size of last chunk to be 
+// less than or equal to 2 elements. This function ensures that
+// no chunk has less than or equal to 2 elements.
+//  
+// #Panics
+// Panics if m is less than size of actual input set
+// or m is less than 3
+
+// pub fn split_by_m(m: usize, actual_input: &mut Vec<Point2D>) -> Vec<Vec<Point2D>> {
+//     assert!(m < actual_input.len() && m > 3);
+//     let mut output: Vec<Vec<Point2D>> = Vec::new();
+
+//     let total_number_of_chunks = actual_input.len() / m;
+//     let size_of_last_set = actual_input.len() - (total_number_of_chunks * m);
+//     // println!("size_of_last_set: {}", size_of_last_set);
+//     // for _ in 0..total_number_of_chunks {    
+//     //         let mut chunk: Vec<Point2D> = Vec::new();
+//     //         for _ in 0..m {
+//     //             chunk.push(actual_input[0]);
+//     //             actual_input.remove(0);
+//     //         }
+//     //         output.push(chunk);
+//     // }
+    
+//     // if size_of_last_set == 0 || size_of_last_set > 2 {
+        
+//     // }
+
+//     output
+// }
