@@ -4,13 +4,17 @@ use points::Point2D;
 
 /// Solves the convexhull problem using Graham-Scan
 ///
-///This method solves the convex-hull by maintaining a stack S
-///of candidate points. It pushes each point of the input
-///set Q onto the stack one at a time, and it eventually
-///pops from the stack each point that is not a vertex of
-///CH(Q). When the algorithm terminates, stack S cpntains
-///exactly the vertices of CH(Q), in counter clockwise
-///order of their appearance on the boundary.
+/// This method solves the convex-hull by maintaining a stack S
+/// of candidate points. It pushes each point of the input
+/// set Q onto the stack one at a time, and it eventually
+/// pops from the stack each point that is not a vertex of
+/// CH(Q). When the algorithm terminates, stack S cpntains
+/// exactly the vertices of CH(Q), in counter clockwise
+/// order of their appearance on the boundary.
+/// 
+/// The psedocode for this algorithm is referred from
+/// Introduction to Algorithms (Third Edition)
+/// Authors: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
 pub fn graham_scan(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //find the pivot point in the input set with the
     //minimum y-coordinate, or the leftmost such point
@@ -45,6 +49,9 @@ pub fn graham_scan(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 
 /// Solves the convexhull problem using Jarvis-March
 ///
+/// The psedocode for this algorithm is referred from
+/// Introduction to Algorithms (Third Edition)
+/// Authors: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
 pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //find the pivot point in the input set with the
     //minimum y-coordinate, or the leftmost such point
@@ -84,6 +91,9 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 
 /// Solves the convexhull problem using chans-algorithm
 ///
+/// The pseudocode for this algorithm is referred from
+/// https://en.wikipedia.org/wiki/Chan%27s_algorithm
+/// https://www.slideshare.net/amrinderarora/convex-hull-chans-algorithm-on-log-h-output-sensitive-algorithm
 pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     set_pivot(input_set);
     let p_1 = input_set[0];
