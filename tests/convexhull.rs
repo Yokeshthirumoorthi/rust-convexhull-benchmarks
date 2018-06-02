@@ -71,7 +71,7 @@ fn test_chans_algorithm() {
 fn test_triangle() {
     // triangle has 3 vertices
     let number_of_vertex = 3;
-    
+
     let vertex_1 = Point2D::new(-1.0000000000000009, -1.7320508075688767);
     let vertex_2 = Point2D::new(2.0, 0.0);
     let vertex_3 = Point2D::new(-0.9999999999999996, 1.7320508075688776);
@@ -93,5 +93,34 @@ fn test_triangle() {
     assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_10000));
     // assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_1000000));
     // assert_eq!(vec![vertex_1, vertex_3, vertex_2], jarvis_march(&mut input_set_10000000));
+    // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10));
+}
+    
+#[test]
+fn test_rectangle() {
+    let number_of_vertex = 4;
+    
+    let vertex_1 = Point2D::new(-0.00000000000000036739403974420594, -2.0);
+    let vertex_2 = Point2D::new(2.0, 0.0);
+    let vertex_3 = Point2D::new(0.00000000000000012246467991473532, 2.0);
+    let vertex_4 = Point2D::new(-2.0, 0.00000000000000024492935982947064);
+
+    let mut input_set_10 = get_input_set(10, number_of_vertex);
+    let mut input_set_100 = get_input_set(100, number_of_vertex);
+    let mut input_set_10000 = get_input_set(10000, number_of_vertex);
+    // let mut input_set_1000000 = get_input_set(1000000, number_of_vertex);
+    // let mut input_set_10000000 = get_input_set(10000000, number_of_vertex);
+
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], graham_scan(&mut input_set_10));
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], graham_scan(&mut input_set_100));
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], graham_scan(&mut input_set_10000));
+    // assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], graham_scan(&mut input_set_1000000));
+    // assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], graham_scan(&mut input_set_10000000));
+
+    assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10));
+    assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_100));
+    assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000));
+    // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_1000000));
+    // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000000));
     // assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10));
 }
