@@ -31,13 +31,15 @@ fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
     graham_scan(input_set);
     let end = PreciseTime::now();
     let time = Time::new(start.to(end));
-    println!("graham_scan: {:?} s", time.seconds());
+    // println!("graham_scan: {:?} s", time.seconds());
+    println!("graham_scan: {:?} ms", time.milli_seconds());
+    // println!("graham_scan: {:?} ns", time.nano_seconds());
     //jarvis march algorithm
     let start = PreciseTime::now();
     jarvis_march(input_set);
     let end = PreciseTime::now();
     let time = Time::new(start.to(end));
-    println!("jarvis_march: {:?} s", time.seconds());
+    println!("jarvis_march: {:?} ms", time.milli_seconds());
     //chans algorithm
     // let start = PreciseTime::now();
     // chans_algorithm(input_set);
@@ -49,7 +51,7 @@ fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
 /// Computes the duration in various
 /// time units
 #[derive(Debug, Copy, Clone)]
-struct Time {
+pub struct Time {
     seconds: f64,
     milli_seconds: f64,
     nano_seconds: f64,
@@ -58,26 +60,27 @@ struct Time {
 /// implementation for accessing time duration
 /// in various time units
 impl Time {
-    fn new(duration: Duration) -> Time {
-        let runtime_nanos = duration.num_nanoseconds().expect("Benchmark iter took greater than 2^63 nanoseconds");
-        let runtime_secs = runtime_nanos as f64 / 1_000_000_000.0;
+    pub fn new(duration: Duration) -> Time {
+        let runtime_nanos = duration.num_nanoseconds().expect("Benchmark iter took greater than 2^63 nanoseconds") as f64;
+        let runtime_secs = runtime_nanos / 1_000_000_000.0;
+        let runtime_milli_secs = runtime_secs * 1_000.0;
 
         Time {
             seconds: runtime_secs,
-            milli_seconds: 0.0,
-            nano_seconds: 0.0
+            milli_seconds: runtime_milli_secs,
+            nano_seconds: runtime_nanos 
         }
     }
 
-    fn seconds(&self) -> f64 {
+    pub fn seconds(&self) -> f64 {
         self.seconds
     }
     
-    fn milli_seconds(&self) -> f64 {
+    pub fn milli_seconds(&self) -> f64 {
         self.milli_seconds
     }
     
-    fn nano_seconds(&self) -> f64 {
+    pub fn nano_seconds(&self) -> f64 {
         self.nano_seconds
     }
 }
