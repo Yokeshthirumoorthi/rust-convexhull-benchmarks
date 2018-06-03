@@ -106,8 +106,8 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //known hull vertex
     let p_0 = Point2D::new(p_1.x - 1.0, 0.);
     // println!("p_0 {:?}", p_0);
-    for t in 1..(sorted_input_set.len() as f64).log2().log2().ceil() as u32 {
-        let mut m = 2_i32.pow(2).pow(t) as usize;
+    for t in 1..sorted_input_set.len() {
+        let mut m = 2_i32.pow(2).pow(t as u32) as usize;
         let mut total_number_of_chunks = sorted_input_set.len() / m;
         let mut size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
         while size_of_last_set > 0 && size_of_last_set < 3 {
