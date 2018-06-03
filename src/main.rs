@@ -12,7 +12,8 @@ use rustalgo::convexhull::*;
 
 fn main() {
     // generate_sample_to_file(Shape::Triangle, Number::Million);
-    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Million);
+    println!("Benchmark For Smaple Data");
+    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Hundred);
 }
 
 //Types of shapes used for input sampling
@@ -103,20 +104,20 @@ fn benchmark_convex_hull_algorithms(shape: Shape, sample_size: Number) {
 
     let mut input_set: Vec<Point2D> = sample_data.iter().map(|p| Point2D::new(p.0, p.1)).collect();
 
-    println!("Benchmark For Smaple Data");
+    let time_graham = execution_time(Algorithm::Graham, &mut input_set);
+    let time_jarvis = execution_time(Algorithm::Jarvis, &mut input_set);
+    let time_chan = execution_time(Algorithm::Chan, &mut input_set);
+
+    println!("----------------------------------------");
     println!("Shape::Triangle, Input size: {}", input_set.len());
-    println!(
-        "graham_scan: {:?} ms",
-        execution_time(Algorithm::Graham, &mut input_set).milli_seconds()
-    );
-    println!(
-        "jarvis_march: {:?} ms",
-        execution_time(Algorithm::Jarvis, &mut input_set).milli_seconds()
-    );
-    println!(
-        "chans_algorithm: {:?} ms",
-        execution_time(Algorithm::Chan, &mut input_set).milli_seconds()
-    );
+    println!("----------------In Milliseconds--------------------");
+    println!("graham_scan: {:?} ms", time_graham.milli_seconds());
+    println!("jarvis_march: {:?} ms", time_jarvis.milli_seconds());
+    println!("chans_algorithm: {:?} ms", time_chan.milli_seconds());
+    println!("----------------In Seconds--------------------");
+    println!("graham_scan: {:?} ms", time_graham.seconds());
+    println!("jarvis_march: {:?} ms", time_jarvis.seconds());
+    println!("chans_algorithm: {:?} ms", time_chan.seconds());
     println!("----------------------------------------")
 }
 
