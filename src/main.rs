@@ -4,8 +4,7 @@
 extern crate time;
 use time::PreciseTime;
 
-use std::time::Instant;
-use std::time::Duration;
+use std::time::{Instant, Duration};
 
 extern crate rustalgo;
 // use rustalgo::inputset_gen::*;
@@ -30,25 +29,23 @@ fn main() {
 /// The output is printed to the console
 fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
     //graham scan algorithm
-    let start = PreciseTime::now();
     let now = Instant::now();
     graham_scan(input_set);
     let elapsed = now.elapsed();
-    let end = PreciseTime::now();
-    let runtime_nanos = start.to(end).num_nanoseconds().expect("Benchmark iter took greater than 2^63 nanoseconds");
-    let runtime_secs = runtime_nanos as f64 / 1_000_000_000.0;
     let time = Time::new(elapsed);
-    println!("graham_scan: {:?} s", time);
-    println!("graham_scan: {} s", runtime_secs);
+    println!("graham_scan: {:?} s", time.seconds());
     //jarvis march algorithm
-    let start = PreciseTime::now();
+    let now = Instant::now();
     jarvis_march(input_set);
-    let end = PreciseTime::now();
-    println!("jarvis_march: {} seconds", start.to(end));
+    let elapsed = now.elapsed();
+    let time = Time::new(elapsed);
+    println!("jarvis_march: {} s", time.seconds());
     //chans algorithm
+    // let now = Instant::now();
     // chans_algorithm(input_set);
-    let end = PreciseTime::now();
-    println!("chans_algorithm: {} seconds", start.to(end));
+    // let elapsed = now.elapsed();
+    // let time = Time::new(elapsed);
+    // println!("chans_algorithm: {} s", time.seconds());
 }
 
 /// Computes the duration in various
