@@ -184,6 +184,9 @@ pub fn orietation(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f6
     (point_b.x - point_a.x) * (point_c.y - point_a.y) - (point_b.y - point_a.y) * (point_c.x - point_a.x)
 }
 
+///
+/// For formula to find the angle when we know the sides of a triangle is
+/// reffered from https://en.wikipedia.org/wiki/Law_of_cosines
 pub fn find_angle(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f64 {
     let a = ((point_b.x - point_a.x).powi(2) + (point_b.y - point_a.y).powi(2)).sqrt();
     let b = ((point_b.x - point_c.x).powi(2) + (point_b.y - point_c.y).powi(2)).sqrt();
