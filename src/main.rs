@@ -1,27 +1,22 @@
-use std::fs::File;
-use std::io::prelude::*;
-
 extern crate time;
 use time::{Duration, PreciseTime};
 
 extern crate rustalgo;
 use rustalgo::inputset_gen::*;
-// use rustalgo::sample_data::*;
 use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
 fn main() {
-    // generate_sample_to_file(Shape::Circle, Number::Hundred);
     println!("Benchmark For Smaple Data");
-    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Hundred);
-    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Thousand);
-    benchmark_convex_hull_algorithms(Shape::Triangle, Number::TenThousand);
-    benchmark_convex_hull_algorithms(Shape::Rectangle, Number::Hundred);
-    benchmark_convex_hull_algorithms(Shape::Rectangle, Number::Thousand);
-    benchmark_convex_hull_algorithms(Shape::Rectangle, Number::TenThousand);
-    benchmark_convex_hull_algorithms(Shape::Circle, Number::Hundred);
-    benchmark_convex_hull_algorithms(Shape::Circle, Number::Thousand);
-    benchmark_convex_hull_algorithms(Shape::Circle, Number::TenThousand);
+    benchmark_algorithms(Shape::Triangle, Number::Hundred);
+    benchmark_algorithms(Shape::Triangle, Number::Thousand);
+    benchmark_algorithms(Shape::Triangle, Number::TenThousand);
+    benchmark_algorithms(Shape::Rectangle, Number::Hundred);
+    benchmark_algorithms(Shape::Rectangle, Number::Thousand);
+    benchmark_algorithms(Shape::Rectangle, Number::TenThousand);
+    benchmark_algorithms(Shape::Circle, Number::Hundred);
+    benchmark_algorithms(Shape::Circle, Number::Thousand);
+    benchmark_algorithms(Shape::Circle, Number::TenThousand);
 }
 
 //Types of shapes used for input sampling
@@ -66,56 +61,9 @@ impl Number {
     }
 }
 
-/// Generates sample set of data and saves to a file.
-///
-/// For now, the output is saved to sample.txt and
-/// manullay moveed out of the file
-/// to a rs file.
-pub fn generate_sample_to_file(shape: Shape, sample_size: Number) {
-    let file_name = "sample.txt";
-    let mut file = File::create(file_name).unwrap();
-    let sample_set = get_input_set(sample_size.val(), shape.num_of_vertices());
-    let mut output = String::new();
-    for point in sample_set {
-        output += &format!("({},{}),", point.x, point.y);
-    }
-    //remove the ',' value in the end of string
-    output.pop();
-    // println!("{}", output);
-    file.write_all(output.as_bytes()).unwrap();
-}
-
 /// Benchmarks all the 3 algorithms for same input
 /// The output is printed to the console
-fn benchmark_convex_hull_algorithms(shape: Shape, sample_size: Number) {
-    // let sample_data = match shape {
-    //     Shape::Triangle => {
-    //         match sample_size {
-    //             Number::Hundred => triangle_100(),
-    //             Number::TenThousand => triangle_10_000(),
-    //             Number::Million => triangle_1_000_000(),
-    //             // Number::TenMillion => triangle_10_000_000(),
-    //         }
-    //     }
-    //     Shape::Rectangle => {
-    //         match sample_size {
-    //             Number::Hundred => rectangle_100(),
-    //             Number::TenThousand => rectangle_100(),
-    //             Number::Million => rectangle_100(),
-    //             // Number::TenMillion => rectangle_10_000_000(),
-    //         }
-    //     }
-    //     Shape::Circle => {
-    //         match sample_size {
-    //             Number::Hundred => circle_100(),
-    //             Number::TenThousand => circle_100(),
-    //             Number::Million => circle_100(),
-    //             // Number::TenMillion => circle_10_000_000(),
-    //         }
-    //     }
-    // };
-
-    // let mut input_set: Vec<Point2D> = sample_data.iter().map(|p| Point2D::new(p.0, p.1)).collect();
+fn benchmark_algorithms(shape: Shape, sample_size: Number) {
     let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
 
     let time_graham = execution_time(Algorithm::Graham, &mut input_set);
