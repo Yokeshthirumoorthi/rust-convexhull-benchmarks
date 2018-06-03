@@ -138,7 +138,7 @@ fn test_rectangle() {
     assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000));
     // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_1000000));
     // assert_eq!(vec![vertex_1, vertex_4, vertex_3, vertex_2], jarvis_march(&mut input_set_10000000));
-    // assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], chans_algorithm(&mut input_set_10));
+    assert_eq!(vec![vertex_1, vertex_2, vertex_3, vertex_4], chans_algorithm(&mut input_set_10));
 }
 
 

@@ -95,40 +95,52 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 /// https://en.wikipedia.org/wiki/Chan%27s_algorithm
 /// https://www.slideshare.net/amrinderarora/convex-hull-chans-algorithm-on-log-h-output-sensitive-algorithm
 pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+    //set the least y-coordinate as first element
     set_pivot(input_set);
-    let p_1 = input_set[0];
+    //sort the elements by polar angle with the first elements.
+    //This is required to create subhulls that dont intersect
+    let sorted_input_set = sort_polar_angle_ccw(input_set);
+    let p_1 = sorted_input_set[0];
+    //assign a least element (-infinity, 0). This is used
+    //for finding second hull element, when we have only one 
+    //known hull vertex
     let p_0 = Point2D::new(p_1.x - 1.0, 0.);
-    for t in 1..(input_set.len() as f64).log2().log2().ceil() as u32 {
+    // println!("p_0 {:?}", p_0);
+    for t in 1..(sorted_input_set.len() as f64).log2().log2().ceil() as u32 {
         let mut m = 2_i32.pow(2).pow(t) as usize;
-        let mut total_number_of_chunks = input_set.len() / m;
-        let mut size_of_last_set = input_set.len() - (total_number_of_chunks * m);
+        let mut total_number_of_chunks = sorted_input_set.len() / m;
+        let mut size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
         while size_of_last_set > 0 && size_of_last_set < 3 {
             m += 1;
-            total_number_of_chunks = input_set.len() / m;
-            size_of_last_set = input_set.len() - (total_number_of_chunks * m);
+            total_number_of_chunks = sorted_input_set.len() / m;
+            size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
         }
 
-        let mut q_k = input_set.chunks(m);
+        let mut q_k = sorted_input_set.chunks(m);
         let mut c_k: Vec<Vec<Point2D>> = Vec::new();
         for k in q_k {
             c_k.push(graham_scan(&mut k.to_vec()));
         }
         let mut hull_points: Vec<Point2D> = Vec::new();
         hull_points.push(p_1);
+        // Find 1 hull point in each iteration.
+        // If not all the hull points are found within m iterations
+        // reset m and restart the algorithm.
         for i in 0..(m - 1) {
             let mut q_i_k: Vec<Point2D> = Vec::new();
             for k in &c_k {
-                if i == 0 {
-                    q_i_k.push(jarvis_binary_search(&p_0, &hull_points[i], k));
-                } else {
-                    q_i_k.push(jarvis_binary_search(&hull_points[i-1], &hull_points[i], k));
-                }
+                // println!("sub_hull_set {:?}",k);
+                q_i_k.push(jarvis_binary_search(if hull_points.len() > 1 { &hull_points[i-1] } else { &p_0 }, &hull_points[i], k));
+                // println!("qik: {:?}\n",q_i_k);
             }
-            let next_hull_point = if i == 0 {
+            let next_hull_point = if hull_points.len() == 1 {
                 jarvis_binary_search(&p_0, &hull_points[i], &q_i_k)
             } else {
                 jarvis_binary_search(&hull_points[i-1], &hull_points[i], &q_i_k)
             };
+
+            // println!("next_hull_point {:?}, ", next_hull_point);
+            // println!("-----\n");
             if next_hull_point == hull_points[0] {
                 return hull_points;
             } else {
