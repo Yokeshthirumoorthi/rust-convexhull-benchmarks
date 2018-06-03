@@ -1,29 +1,38 @@
-// use std::fs::File;
-// use std::io::prelude::*;
+use std::fs::File;
+use std::io::prelude::*;
 
 extern crate time;
 use time::{PreciseTime, Duration};
 
 extern crate rustalgo;
-// use rustalgo::inputset_gen::*;
+use rustalgo::inputset_gen::*;
 use rustalgo::sample_data::*;
 use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
 fn main() {
-    // let mut file = File::create("sample.txt").unwrap();
-    // let number_of_vertex = 3;
-    // let input_set_10 = get_input_set(10, number_of_vertex);
-    // let mut output = String::new();
-    // for point in input_set_10 {
-    //     output += &format!("({},{}),", point.x, point.y);
-    // }
-    // file.write_all(output.as_bytes()).unwrap();
+    generate_sample_to_file(100, 3);
     let mut triangle_10: Vec<Point2D> = triangle_10().iter().map(|p| Point2D::new(p.0,p.1)).collect();
     println!("Benchmark For Smaple Data");
     println!("Shape::Triangle, Input size: {}", 10);
     benchmark_convex_hull_algorithms(&mut triangle_10);
     println!("----------------------------------------")
+}
+
+/// Generates sample set of data and saves to a file.
+/// 
+/// For now, the output is saved to sample.txt and 
+/// manullay moveed out of the file
+/// to a rs file.
+fn generate_sample_to_file (sample_size: u64, vertex_count: u64) {
+    let file_name = "sample.txt";
+    let mut file = File::create(file_name).unwrap();
+    let sample_set = get_input_set(sample_size, vertex_count);
+    let mut output = String::new();
+    for point in sample_set {
+        output += &format!("({},{}),", point.x, point.y);
+    }
+    file.write_all(output.as_bytes()).unwrap();
 }
 
 /// Benchmarks all the 3 algorithms for same input
@@ -51,7 +60,7 @@ fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
     // println!("chans_algorithm: {:?} s", time.seconds());
 }
 
-/// Computes the duration in various
+/// Provides the duration in various
 /// time units
 #[derive(Debug, Copy, Clone)]
 pub struct Time {
