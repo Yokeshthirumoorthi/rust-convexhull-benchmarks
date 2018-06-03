@@ -56,17 +56,33 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "redox_syscall"
+version = "0.1.40"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "rustalgo"
 version = "0.1.0"
 dependencies = [
  "plotlib 0.3.0 (git+https://github.com/milliams/plotlib)",
  "rand 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time 0.1.40 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "svg"
 version = "0.5.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "time"
+version = "0.1.40"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.41 (registry+https://github.com/rust-lang/crates.io-index)",
+ "redox_syscall 0.1.40 (registry+https://github.com/rust-lang/crates.io-index)",
+ "winapi 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "winapi"
@@ -96,7 +112,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum plotlib 0.3.0 (git+https://github.com/milliams/plotlib)" = "<none>"
 "checksum rand 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)" = "7a89abf8d34faf9783692392dca7bcdc6e82fa84eca86ccb6301ec87f3497185"
 "checksum rand_core 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1b7a5f27547c49e5ccf8a586db3f3782fd93cf849780b21853b9d981db203302"
+"checksum redox_syscall 0.1.40 (registry+https://github.com/rust-lang/crates.io-index)" = "c214e91d3ecf43e9a4e41e578973adeb14b474f2bee858742d127af75a0112b1"
 "checksum svg 0.5.10 (registry+https://github.com/rust-lang/crates.io-index)" = "5ce4450d6982b758228fa5407db2fc27cefccb013c170ade23c03ec3a643bb72"
+"checksum time 0.1.40 (registry+https://github.com/rust-lang/crates.io-index)" = "d825be0eb33fda1a7e68012d51e9c7f451dc1a69391e7fdc197060bb8c56667b"
 "checksum winapi 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)" = "04e3bd221fcbe8a271359c04f21a76db7d0c6028862d1bb5512d85e1e2eb5bb3"
 "checksum winapi-i686-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
 "checksum winapi-x86_64-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
