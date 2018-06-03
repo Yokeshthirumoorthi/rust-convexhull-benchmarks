@@ -189,6 +189,7 @@ pub fn find_angle(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f6
     let b = ((point_b.x - point_c.x).powi(2) + (point_b.y - point_c.y).powi(2)).sqrt();
     let c = ((point_c.x - point_a.x).powi(2) + (point_c.y - point_a.y).powi(2)).sqrt();
 
-    // println!("{},{},{},{}", a,b,c,((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * c)));
-    ((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * c)).acos()
+    // println!("{},{},{}", a,b,c);
+    // println!("{}", ((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * b)));
+    ((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * b)).acos()
 }
