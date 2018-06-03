@@ -19,8 +19,11 @@ fn main() {
     //     output += &format!("({},{}),", point.x, point.y);
     // }
     // file.write_all(output.as_bytes()).unwrap();
-    let mut input_set_10: Vec<Point2D> = triangle_10().iter().map(|p| Point2D::new(p.0,p.1)).collect();
-    benchmark_convex_hull_algorithms(&mut input_set_10)
+    let mut triangle_10: Vec<Point2D> = triangle_10().iter().map(|p| Point2D::new(p.0,p.1)).collect();
+    println!("Benchmark For Smaple Data");
+    println!("Shape::Triangle, Input size: {}", 10);
+    benchmark_convex_hull_algorithms(&mut triangle_10);
+    println!("----------------------------------------")
 }
 
 /// Benchmarks all the 3 algorithms for same input
