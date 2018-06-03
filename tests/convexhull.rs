@@ -183,6 +183,8 @@ fn test_circle() {
     assert_eq!(hull_should_be, graham_scan(&mut input_set_10000));
     // assert_eq!(hull_should_be, graham_scan(&mut input_set_1000000));
     // assert_eq!(hull_should_be, graham_scan(&mut input_set_10000000));
+    assert_eq!(hull_should_be, chans_algorithm(&mut input_set_100));
+    assert_eq!(hull_should_be, chans_algorithm(&mut input_set_10000));
 
     let hull_should_be = vec![vertex_1,vertex_18,vertex_17,
                             vertex_16,vertex_15,vertex_14,
