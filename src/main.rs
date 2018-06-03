@@ -2,9 +2,7 @@
 // use std::io::prelude::*;
 
 extern crate time;
-use time::PreciseTime;
-
-use std::time::{Instant, Duration};
+use time::{PreciseTime, Duration};
 
 extern crate rustalgo;
 // use rustalgo::inputset_gen::*;
@@ -29,23 +27,23 @@ fn main() {
 /// The output is printed to the console
 fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
     //graham scan algorithm
-    let now = Instant::now();
+    let start = PreciseTime::now();
     graham_scan(input_set);
-    let elapsed = now.elapsed();
-    let time = Time::new(elapsed);
+    let end = PreciseTime::now();
+    let time = Time::new(start.to(end));
     println!("graham_scan: {:?} s", time.seconds());
     //jarvis march algorithm
-    let now = Instant::now();
+    let start = PreciseTime::now();
     jarvis_march(input_set);
-    let elapsed = now.elapsed();
-    let time = Time::new(elapsed);
-    println!("jarvis_march: {} s", time.seconds());
+    let end = PreciseTime::now();
+    let time = Time::new(start.to(end));
+    println!("jarvis_march: {:?} s", time.seconds());
     //chans algorithm
-    // let now = Instant::now();
+    // let start = PreciseTime::now();
     // chans_algorithm(input_set);
-    // let elapsed = now.elapsed();
-    // let time = Time::new(elapsed);
-    // println!("chans_algorithm: {} s", time.seconds());
+    // let end = PreciseTime::now();
+    // let time = Time::new(start.to(end));
+    // println!("chans_algorithm: {:?} s", time.seconds());
 }
 
 /// Computes the duration in various
@@ -61,10 +59,11 @@ struct Time {
 /// in various time units
 impl Time {
     fn new(duration: Duration) -> Time {
-        let sec = (duration.as_secs() as f64) + (duration.subsec_nanos() as f64 / 1000_000_000.0);
+        let runtime_nanos = duration.num_nanoseconds().expect("Benchmark iter took greater than 2^63 nanoseconds");
+        let runtime_secs = runtime_nanos as f64 / 1_000_000_000.0;
 
         Time {
-            seconds: sec,
+            seconds: runtime_secs,
             milli_seconds: 0.0,
             nano_seconds: 0.0
         }
