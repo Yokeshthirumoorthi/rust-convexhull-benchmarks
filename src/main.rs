@@ -11,7 +11,7 @@ use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
 fn main() {
-    // generate_sample_to_file(100, Shape::Triangle);
+    // generate_sample_to_file(Number::Hundred, Shape::Triangle);
     let mut triangle_100: Vec<Point2D> = triangle_100().iter().map(|p| Point2D::new(p.0 as f64,p.1 as f64)).collect();
     benchmark_convex_hull_algorithms(&mut triangle_100);
 }
@@ -34,15 +34,34 @@ impl Shape {
     }
 }
 
+//Sizes of input sampling
+pub enum Number {
+    Hundred,
+    TenHundred,
+    Million,
+    TenMillion,
+}
+
+impl Number {
+    pub fn val(self) -> u64 {
+        match self {
+            Number::Hundred => 100,
+            Number::TenHundred => 10_000,
+            Number::Million => 1_000_000,
+            Number::TenMillion => 10_000_000,
+        }
+    }
+}
+
 /// Generates sample set of data and saves to a file.
 /// 
 /// For now, the output is saved to sample.txt and 
 /// manullay moveed out of the file
 /// to a rs file.
-pub fn generate_sample_to_file (sample_size: u64, shape: Shape) {
+pub fn generate_sample_to_file (sample_size: Number, shape: Shape) {
     let file_name = "sample.txt";
     let mut file = File::create(file_name).unwrap();
-    let sample_set = get_input_set(sample_size, shape.num_of_vertices());
+    let sample_set = get_input_set(sample_size.val(), shape.num_of_vertices());
     let mut output = String::new();
     for point in sample_set {
         output += &format!("({},{}),", point.x, point.y);
