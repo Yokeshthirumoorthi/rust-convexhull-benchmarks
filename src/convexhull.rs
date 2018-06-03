@@ -133,12 +133,7 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
                 q_i_k.push(jarvis_binary_search(if hull_points.len() > 1 { &hull_points[i-1] } else { &p_0 }, &hull_points[i], k));
                 // println!("qik: {:?}\n",q_i_k);
             }
-            let next_hull_point = if hull_points.len() == 1 {
-                jarvis_binary_search(&p_0, &hull_points[i], &q_i_k)
-            } else {
-                jarvis_binary_search(&hull_points[i-1], &hull_points[i], &q_i_k)
-            };
-
+            let next_hull_point = jarvis_binary_search(if hull_points.len() > 1 { &hull_points[i-1] } else { &p_0 }, &hull_points[i], &q_i_k);
             // println!("next_hull_point {:?}, ", next_hull_point);
             // println!("-----\n");
             if next_hull_point == hull_points[0] {

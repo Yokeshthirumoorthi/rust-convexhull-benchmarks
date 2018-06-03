@@ -183,3 +183,12 @@ fn test_fat_point_cmp() {
 pub fn orietation(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f64 {
     (point_b.x - point_a.x) * (point_c.y - point_a.y) - (point_b.y - point_a.y) * (point_c.x - point_a.x)
 }
+
+pub fn find_angle(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f64 {
+    let a = ((point_b.x - point_a.x).powi(2) + (point_b.y - point_a.y).powi(2)).sqrt();
+    let b = ((point_b.x - point_c.x).powi(2) + (point_b.y - point_c.y).powi(2)).sqrt();
+    let c = ((point_c.x - point_a.x).powi(2) + (point_c.y - point_a.y).powi(2)).sqrt();
+
+    // println!("{},{},{},{}", a,b,c,((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * c)));
+    ((a.powi(2) + b.powi(2) - c.powi(2)) / (2. * a * c)).acos()
+}

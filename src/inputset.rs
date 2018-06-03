@@ -58,15 +58,21 @@ pub fn sort_polar_angle_ccw(input_set: &Vec<Point2D>) -> Vec<Point2D> {
 pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: &Vec<Point2D>) -> Point2D {
     let mut max_angled_point = sub_hull_set[0];
     let mut max_angle = 0.0;
-    // println!("nextpt {:?}",top);
+    // println!("next_to_top {:?}",next_to_top);
+    // println!("top {:?}",top);
     // println!("sub_hull_set {:?}",sub_hull_set);
     for point in sub_hull_set {
-        let orientation = orietation(&next_to_top, &top, &point);
-        // println!("{:?}: {}",*point, orientation);
-        if max_angle < orientation && *point != *next_to_top && *point != *top {
+        let orientation = find_angle(&next_to_top, &top, &point);
+        // if next_to_top == &Point2D::new(2.,0.) {
+        //     println!("next_to_top {:?}",next_to_top);
+        //     println!("top {:?}",top);
+            // println!("{:?}: {}",*point, orientation);
+        // }
+
+        if max_angle < orientation && *point != *top {
             max_angle = orientation;
             max_angled_point = *point
-        }
+        } 
     }
     max_angled_point
 }
@@ -103,3 +109,9 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
 
 //     output
 // }
+
+// next_to_top Point2D { x: 2.0, y: 0.0 }
+// top Point2D { x: 0., y: 2.0 }
+// Point2D { x: -0., y: -2.0 }: 8
+// Point2D { x: -2.0, y: 0. }: 7.999999999999999
+// next_hull_point Point2D { x: -0.00000000000000036739403974420594, y: -2.0 }, 
