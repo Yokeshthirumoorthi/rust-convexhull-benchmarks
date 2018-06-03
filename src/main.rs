@@ -29,6 +29,8 @@ pub fn generate_sample_to_file (sample_size: u64, vertex_count: u64) {
     for point in sample_set {
         output += &format!("({},{}),", point.x, point.y);
     }
+    //remove the ',' value in the end of string
+    output.pop();
     file.write_all(output.as_bytes()).unwrap();
 }
 
@@ -37,27 +39,29 @@ pub fn generate_sample_to_file (sample_size: u64, vertex_count: u64) {
 fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
     println!("Benchmark For Smaple Data");
     println!("Shape::Triangle, Input size: {}", input_set.len());
-    //graham scan algorithm
-    let start = PreciseTime::now();
-    graham_scan(input_set);
-    let end = PreciseTime::now();
-    let time = Time::new(start.to(end));
-    // println!("graham_scan: {:?} s", time.seconds());
-    println!("graham_scan: {:?} ms", time.milli_seconds());
-    // println!("graham_scan: {:?} ns", time.nano_seconds());
-    //jarvis march algorithm
-    let start = PreciseTime::now();
-    jarvis_march(input_set);
-    let end = PreciseTime::now();
-    let time = Time::new(start.to(end));
-    println!("jarvis_march: {:?} ms", time.milli_seconds());
-    //chans algorithm
-    let start = PreciseTime::now();
-    chans_algorithm(input_set);
-    let end = PreciseTime::now();
-    let time = Time::new(start.to(end));
-    println!("chans_algorithm: {:?} ms", time.milli_seconds());
+    println!("graham_scan: {:?} ms", execution_time(Algorithm::Graham, input_set).milli_seconds());
+    println!("jarvis_march: {:?} ms", execution_time(Algorithm::Jarvis, input_set).milli_seconds());
+    println!("chans_algorithm: {:?} ms", execution_time(Algorithm::Chan, input_set).milli_seconds());
     println!("----------------------------------------")
+}
+
+///Types of algorithms handled in this programm
+enum Algorithm {
+    Graham,
+    Jarvis,
+    Chan,
+}
+
+/// Executes an algorithm for given inputset of point and returns the time
+fn execution_time(algorithm: Algorithm, input_set: &mut Vec<Point2D>) -> Time {
+    let start = PreciseTime::now();
+    match algorithm {
+        Algorithm::Graham => graham_scan(input_set),
+        Algorithm::Jarvis => jarvis_march(input_set),
+        Algorithm::Chan => chans_algorithm(input_set),
+    };
+    let end = PreciseTime::now();
+    Time::new(start.to(end))
 }
 
 /// Provides the duration in various
