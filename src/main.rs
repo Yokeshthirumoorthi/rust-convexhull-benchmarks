@@ -11,16 +11,14 @@ use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
 fn main() {
-    // generate_sample_to_file(Number::Hundred, Shape::Triangle);
-    let mut triangle_100: Vec<Point2D> = triangle_100().iter().map(|p| Point2D::new(p.0 as f64,p.1 as f64)).collect();
-    benchmark_convex_hull_algorithms(&mut triangle_100);
+    // generate_sample_to_file(Shape::Triangle, Number::Hundred);
+    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Hundred);
 }
 
 //Types of shapes used for input sampling
 pub enum Shape {
     Triangle,
     Rectangle,
-    // we have chosen to have 18 vertex points for a triangle
     Circle,
 }
 
@@ -29,6 +27,7 @@ impl Shape {
         match self {
             Shape::Triangle => 3,
             Shape::Rectangle => 4,
+            // we have chosen to have 18 vertex points for a triangle
             Shape::Circle => 18,
         }
     }
@@ -58,7 +57,7 @@ impl Number {
 /// For now, the output is saved to sample.txt and 
 /// manullay moveed out of the file
 /// to a rs file.
-pub fn generate_sample_to_file (sample_size: Number, shape: Shape) {
+pub fn generate_sample_to_file (shape: Shape, sample_size: Number) {
     let file_name = "sample.txt";
     let mut file = File::create(file_name).unwrap();
     let sample_set = get_input_set(sample_size.val(), shape.num_of_vertices());
@@ -74,12 +73,42 @@ pub fn generate_sample_to_file (sample_size: Number, shape: Shape) {
 
 /// Benchmarks all the 3 algorithms for same input
 /// The output is printed to the console
-fn benchmark_convex_hull_algorithms(input_set: &mut Vec<Point2D>) {
+fn benchmark_convex_hull_algorithms(shape: Shape, sample_size: Number) {
+
+    let sample_data = match shape {
+        Shape::Triangle => {
+            match sample_size {
+                Number::Hundred => triangle_100(),
+                Number::TenHundred => triangle_100(),
+                Number::Million => triangle_100(),
+                Number::TenMillion => triangle_100(),
+            }
+        },
+        Shape::Rectangle => {
+            match sample_size {
+                Number::Hundred => triangle_100(),
+                Number::TenHundred => triangle_100(),
+                Number::Million => triangle_100(),
+                Number::TenMillion => triangle_100(),
+            }
+        },
+        Shape::Circle => {
+            match sample_size {
+                Number::Hundred => triangle_100(),
+                Number::TenHundred => triangle_100(),
+                Number::Million => triangle_100(),
+                Number::TenMillion => triangle_100(),
+            }
+        },
+    };
+
+    let mut input_set: Vec<Point2D> = sample_data.iter().map(|p| Point2D::new(p.0,p.1)).collect();
+
     println!("Benchmark For Smaple Data");
     println!("Shape::Triangle, Input size: {}", input_set.len());
-    println!("graham_scan: {:?} ms", execution_time(Algorithm::Graham, input_set).milli_seconds());
-    println!("jarvis_march: {:?} ms", execution_time(Algorithm::Jarvis, input_set).milli_seconds());
-    println!("chans_algorithm: {:?} ms", execution_time(Algorithm::Chan, input_set).milli_seconds());
+    println!("graham_scan: {:?} ms", execution_time(Algorithm::Graham, &mut input_set).milli_seconds());
+    println!("jarvis_march: {:?} ms", execution_time(Algorithm::Jarvis, &mut input_set).milli_seconds());
+    println!("chans_algorithm: {:?} ms", execution_time(Algorithm::Chan, &mut input_set).milli_seconds());
     println!("----------------------------------------")
 }
 
