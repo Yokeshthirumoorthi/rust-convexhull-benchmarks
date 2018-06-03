@@ -6,7 +6,7 @@ use time::{Duration, PreciseTime};
 
 extern crate rustalgo;
 use rustalgo::inputset_gen::*;
-use rustalgo::sample_data::*;
+// use rustalgo::sample_data::*;
 use rustalgo::points::*;
 use rustalgo::convexhull::*;
 
@@ -14,8 +14,14 @@ fn main() {
     // generate_sample_to_file(Shape::Circle, Number::Hundred);
     println!("Benchmark For Smaple Data");
     benchmark_convex_hull_algorithms(Shape::Triangle, Number::Hundred);
+    benchmark_convex_hull_algorithms(Shape::Triangle, Number::Thousand);
+    benchmark_convex_hull_algorithms(Shape::Triangle, Number::TenThousand);
     benchmark_convex_hull_algorithms(Shape::Rectangle, Number::Hundred);
+    benchmark_convex_hull_algorithms(Shape::Rectangle, Number::Thousand);
+    benchmark_convex_hull_algorithms(Shape::Rectangle, Number::TenThousand);
     benchmark_convex_hull_algorithms(Shape::Circle, Number::Hundred);
+    benchmark_convex_hull_algorithms(Shape::Circle, Number::Thousand);
+    benchmark_convex_hull_algorithms(Shape::Circle, Number::TenThousand);
 }
 
 //Types of shapes used for input sampling
@@ -40,7 +46,9 @@ impl Shape {
 //Sizes of input sampling
 pub enum Number {
     Hundred,
+    Thousand,
     TenThousand,
+    HundredThousand,
     Million,
     // TenMillion,
 }
@@ -49,7 +57,9 @@ impl Number {
     pub fn val(self) -> u64 {
         match self {
             Number::Hundred => 100,
+            Number::Thousand => 1_000,
             Number::TenThousand => 10_000,
+            Number::HundredThousand => 100_000,
             Number::Million => 1_000_000,
             // Number::TenMillion => 10_000_000,
         }
@@ -78,41 +88,42 @@ pub fn generate_sample_to_file(shape: Shape, sample_size: Number) {
 /// Benchmarks all the 3 algorithms for same input
 /// The output is printed to the console
 fn benchmark_convex_hull_algorithms(shape: Shape, sample_size: Number) {
-    let sample_data = match shape {
-        Shape::Triangle => {
-            match sample_size {
-                Number::Hundred => triangle_100(),
-                Number::TenThousand => triangle_10_000(),
-                Number::Million => triangle_1_000_000(),
-                // Number::TenMillion => triangle_10_000_000(),
-            }
-        }
-        Shape::Rectangle => {
-            match sample_size {
-                Number::Hundred => rectangle_100(),
-                Number::TenThousand => rectangle_100(),
-                Number::Million => rectangle_100(),
-                // Number::TenMillion => rectangle_10_000_000(),
-            }
-        }
-        Shape::Circle => {
-            match sample_size {
-                Number::Hundred => circle_100(),
-                Number::TenThousand => circle_100(),
-                Number::Million => circle_100(),
-                // Number::TenMillion => circle_10_000_000(),
-            }
-        }
-    };
+    // let sample_data = match shape {
+    //     Shape::Triangle => {
+    //         match sample_size {
+    //             Number::Hundred => triangle_100(),
+    //             Number::TenThousand => triangle_10_000(),
+    //             Number::Million => triangle_1_000_000(),
+    //             // Number::TenMillion => triangle_10_000_000(),
+    //         }
+    //     }
+    //     Shape::Rectangle => {
+    //         match sample_size {
+    //             Number::Hundred => rectangle_100(),
+    //             Number::TenThousand => rectangle_100(),
+    //             Number::Million => rectangle_100(),
+    //             // Number::TenMillion => rectangle_10_000_000(),
+    //         }
+    //     }
+    //     Shape::Circle => {
+    //         match sample_size {
+    //             Number::Hundred => circle_100(),
+    //             Number::TenThousand => circle_100(),
+    //             Number::Million => circle_100(),
+    //             // Number::TenMillion => circle_10_000_000(),
+    //         }
+    //     }
+    // };
 
-    let mut input_set: Vec<Point2D> = sample_data.iter().map(|p| Point2D::new(p.0, p.1)).collect();
+    // let mut input_set: Vec<Point2D> = sample_data.iter().map(|p| Point2D::new(p.0, p.1)).collect();
+    let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
 
     let time_graham = execution_time(Algorithm::Graham, &mut input_set);
     let time_jarvis = execution_time(Algorithm::Jarvis, &mut input_set);
     let time_chan = execution_time(Algorithm::Chan, &mut input_set);
 
     println!("----------------------------------------");
-    println!("{:?}, Input size: {}", shape, input_set.len());
+    println!(" Input size: {}", input_set.len());
     println!("----------------In Milliseconds--------------------");
     println!("graham_scan: {:?} ms", time_graham.milli_seconds());
     println!("jarvis_march: {:?} ms", time_jarvis.milli_seconds());
