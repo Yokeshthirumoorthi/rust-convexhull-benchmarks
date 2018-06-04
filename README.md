@@ -8,7 +8,7 @@ A Rust library for benchmarking the following convex hull algorithms.
 
 The input set is generated using rand crate for some 
 predetermined hull shape. For example, the sample input set
-generated for a triangulr hull has 3 hull points and the rest of the points fill within the vertices.
+generated for a triangulr hull has 3 hull points and the rest of the points fill within these vertices.
 
 The permissible shapes are Triangle, Rectangle 
 and Circle. And the permissible input sizes
@@ -25,19 +25,21 @@ rustalgo = "0.1"
 
 ```rust
 extern crate rustalgo;
-use rustalgo::benchmark::*;
+use rustalgo::benchmark::benchmark_algorithms;
+use rustalgo::benchmark::Shape::*;
+use rustalgo::benchmark::Number::*;
 
 fn main() {
     println!("Benchmark For Smaple Data");
-    benchmark_algorithms(Shape::Triangle, Number::Hundred);
-    benchmark_algorithms(Shape::Triangle, Number::Thousand);
-    benchmark_algorithms(Shape::Triangle, Number::TenThousand);
-    benchmark_algorithms(Shape::Rectangle, Number::Hundred);
-    benchmark_algorithms(Shape::Rectangle, Number::Thousand);
-    benchmark_algorithms(Shape::Rectangle, Number::TenThousand);
-    benchmark_algorithms(Shape::Circle, Number::Hundred);
-    benchmark_algorithms(Shape::Circle, Number::Thousand);
-    benchmark_algorithms(Shape::Circle, Number::TenThousand);
+    benchmark_algorithms(Triangle, Hundred);
+    benchmark_algorithms(Triangle, Thousand);
+    benchmark_algorithms(Triangle, TenThousand);
+    benchmark_algorithms(Rectangle, Hundred);
+    benchmark_algorithms(Rectangle, Thousand);
+    benchmark_algorithms(Rectangle, TenThousand);
+    benchmark_algorithms(Circle, Hundred);
+    benchmark_algorithms(Circle, Thousand);
+    benchmark_algorithms(Circle, TenThousand);
 }
 ```
 ## Author
