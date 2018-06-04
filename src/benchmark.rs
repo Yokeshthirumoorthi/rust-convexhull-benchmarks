@@ -12,7 +12,7 @@ enum Algorithm {
     Chan,
 }
 
-//Types of shapes used for input sampling
+///Types of shapes used for input sampling
 #[derive(Debug, Copy, Clone)]
 pub enum Shape {
     Triangle,
@@ -31,7 +31,8 @@ impl Shape {
     }
 }
 
-//Sizes of input sampling
+///Sizes of input sampling
+#[derive(Debug, Copy, Clone)]
 pub enum Number {
     Hundred,
     Thousand,
@@ -103,13 +104,12 @@ pub fn benchmark_algorithms(shape: Shape, sample_size: Number) {
     let time_jarvis = execution_time(Algorithm::Jarvis, &mut input_set);
     let time_chan = execution_time(Algorithm::Chan, &mut input_set);
 
+    // The output is printed to the console
     println!("----------------------------------------");
-    println!("Shape: {:?}, Size: {}", shape, input_set.len());
-    println!("----------------In Milliseconds--------------------");
+    println!("Shape: {:?}, Size: {:?}", shape, sample_size);
     println!("graham_scan: {:?} ms", time_graham.milli_seconds());
     println!("jarvis_march: {:?} ms", time_jarvis.milli_seconds());
     println!("chans_algorithm: {:?} ms", time_chan.milli_seconds());
-    // println!("----------------In Seconds--------------------");
     // println!("graham_scan: {:?} s", time_graham.seconds());
     // println!("jarvis_march: {:?} s", time_jarvis.seconds());
     // println!("chans_algorithm: {:?} s", time_chan.seconds());
