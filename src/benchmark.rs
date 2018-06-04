@@ -6,7 +6,8 @@ use points::*;
 use convexhull::*;
 
 ///Types of algorithms handled in this programm
-enum Algorithm {
+#[derive(Debug, Copy, Clone)]
+pub enum Algorithm {
     Graham,
     Jarvis,
     Chan,
@@ -114,6 +115,30 @@ pub fn benchmark_algorithms(shape: Shape, sample_size: Number) {
     // println!("jarvis_march: {:?} s", time_jarvis.seconds());
     // println!("chans_algorithm: {:?} s", time_chan.seconds());
     println!("----------------------------------------")
+}
+
+/// One another convenient function to print the results
+/// The output is printed in console
+pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
+    let sample_sizes: Vec<Number> = vec![
+        Number::Hundred,
+        Number::Thousand,
+        Number::TenThousand,
+        Number::HundredThousand,
+        Number::Million,
+        Number::TenMillion,
+    ];
+
+    let mut output: Vec<(u64, f64)> = Vec::new();
+    for sample_size in sample_sizes {
+        let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
+        let result = (
+            sample_size.val(),
+            execution_time(algorithm, &mut input_set).milli_seconds(),
+        );
+        output.push(result);
+    }
+    println!("{:?}_{:?} : {:?}", algorithm, shape, output);
 }
 
 /// Executes an algorithm for given inputset of point and returns the time
