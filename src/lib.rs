@@ -5,4 +5,4 @@ pub mod convexhull;
 pub mod inputset_gen;
 // pub mod rand_gen;
 pub mod plots;
-pub mod sample_data;
+pub mod benchmark;
