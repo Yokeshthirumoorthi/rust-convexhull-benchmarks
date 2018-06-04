@@ -11,6 +11,9 @@ fn main() {
     benchmark_algorithms(Shape::Triangle, Number::Hundred);
     benchmark_algorithms(Shape::Triangle, Number::Thousand);
     benchmark_algorithms(Shape::Triangle, Number::TenThousand);
+    benchmark_algorithms(Shape::Triangle, Number::HundredThousand);
+    benchmark_algorithms(Shape::Triangle, Number::Million);
+    benchmark_algorithms(Shape::Triangle, Number::TenMillion);
     benchmark_algorithms(Shape::Rectangle, Number::Hundred);
     benchmark_algorithms(Shape::Rectangle, Number::Thousand);
     benchmark_algorithms(Shape::Rectangle, Number::TenThousand);
@@ -20,7 +23,7 @@ fn main() {
 }
 
 //Types of shapes used for input sampling
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Shape {
     Triangle,
     Rectangle,
@@ -45,7 +48,7 @@ pub enum Number {
     TenThousand,
     HundredThousand,
     Million,
-    // TenMillion,
+    TenMillion,
 }
 
 impl Number {
@@ -56,7 +59,7 @@ impl Number {
             Number::TenThousand => 10_000,
             Number::HundredThousand => 100_000,
             Number::Million => 1_000_000,
-            // Number::TenMillion => 10_000_000,
+            Number::TenMillion => 10_000_000,
         }
     }
 }
@@ -71,7 +74,7 @@ fn benchmark_algorithms(shape: Shape, sample_size: Number) {
     let time_chan = execution_time(Algorithm::Chan, &mut input_set);
 
     println!("----------------------------------------");
-    println!(" Input size: {}", input_set.len());
+    println!("Shape: {:?}, Size: {}", shape, input_set.len());
     println!("----------------In Milliseconds--------------------");
     println!("graham_scan: {:?} ms", time_graham.milli_seconds());
     println!("jarvis_march: {:?} ms", time_jarvis.milli_seconds());
