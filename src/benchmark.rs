@@ -41,6 +41,7 @@ pub enum Number {
     HundredThousand,
     Million,
     TenMillion,
+    Other(u64),
 }
 
 impl Number {
@@ -52,7 +53,12 @@ impl Number {
             Number::HundredThousand => 100_000,
             Number::Million => 1_000_000,
             Number::TenMillion => 10_000_000,
+            Number::Other(x) => x,
         }
+    }
+
+    pub fn times(self, x: u64) -> Number {
+        Number::Other(self.val() * x)
     }
 }
 
@@ -99,13 +105,20 @@ impl Time {
 /// One another convenient function to print the results
 /// The output is printed in console
 pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
+    use self::Number::*;
     let sample_sizes: Vec<Number> = vec![
-        Number::Hundred,
-        Number::Thousand,
-        Number::TenThousand,
-        Number::HundredThousand,
-        Number::Million,
-        Number::TenMillion,
+        Hundred,
+        Thousand,
+        TenThousand,
+        HundredThousand,
+        HundredThousand.times(2),
+        HundredThousand.times(5),
+        HundredThousand.times(7),
+        Million,
+        Million.times(2),
+        Million.times(5),
+        Million.times(7),
+        TenMillion,
     ];
 
     let mut output: Vec<(u64, f64)> = Vec::new();
