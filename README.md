@@ -25,21 +25,21 @@ rustalgo = "0.1"
 
 ```rust
 extern crate rustalgo;
-use rustalgo::benchmark::benchmark_algorithms;
+use rustalgo::benchmark::benchmark_algorithm;
 use rustalgo::benchmark::Shape::*;
-use rustalgo::benchmark::Number::*;
+use rustalgo::benchmark::Algorithm::*;
 
 fn main() {
-    println!("Benchmark For Smaple Data");
-    benchmark_algorithms(Triangle, Hundred);
-    benchmark_algorithms(Triangle, Thousand);
-    benchmark_algorithms(Triangle, TenThousand);
-    benchmark_algorithms(Rectangle, Hundred);
-    benchmark_algorithms(Rectangle, Thousand);
-    benchmark_algorithms(Rectangle, TenThousand);
-    benchmark_algorithms(Circle, Hundred);
-    benchmark_algorithms(Circle, Thousand);
-    benchmark_algorithms(Circle, TenThousand);
+    println!("Benchmark Results");
+    benchmark_algorithm(Graham, Triangle);
+    benchmark_algorithm(Jarvis, Triangle);
+    benchmark_algorithm(Chan, Triangle);
+    benchmark_algorithm(Graham, Rectangle);
+    benchmark_algorithm(Jarvis, Rectangle);
+    benchmark_algorithm(Chan, Rectangle);
+    benchmark_algorithm(Graham, Circle);
+    benchmark_algorithm(Jarvis, Circle);
+    benchmark_algorithm(Chan, Circle);
 }
 ```
 ## Author
