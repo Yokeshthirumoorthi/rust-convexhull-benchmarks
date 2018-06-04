@@ -1,23 +1,10 @@
 extern crate rustalgo;
-use rustalgo::benchmark::*;
+use rustalgo::benchmark::benchmark_algorithm;
 use rustalgo::benchmark::Shape::*;
-// use rustalgo::benchmark::Number::*;
 use rustalgo::benchmark::Algorithm::*;
 
 fn main() {
     println!("Benchmark Results");
-    // benchmark_algorithms(Triangle, Hundred);
-    // benchmark_algorithms(Triangle, Thousand);
-    // benchmark_algorithms(Triangle, TenThousand);
-    // // benchmark_algorithms(Triangle, HundredThousand);
-    // // benchmark_algorithms(Triangle, Million);
-    // // benchmark_algorithms(Triangle, TenMillion);
-    // benchmark_algorithms(Rectangle, Hundred);
-    // benchmark_algorithms(Rectangle, Thousand);
-    // benchmark_algorithms(Rectangle, TenThousand);
-    // benchmark_algorithms(Circle, Hundred);
-    // benchmark_algorithms(Circle, Thousand);
-    // benchmark_algorithms(Circle, TenThousand);
     benchmark_algorithm(Graham, Triangle);
     benchmark_algorithm(Jarvis, Triangle);
     benchmark_algorithm(Chan, Triangle);

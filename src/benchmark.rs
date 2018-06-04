@@ -96,27 +96,6 @@ impl Time {
     }
 }
 
-/// Benchmarks all the 3 algorithms for same input
-/// The output is printed to the console
-pub fn benchmark_algorithms(shape: Shape, sample_size: Number) {
-    let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
-
-    let time_graham = execution_time(Algorithm::Graham, &mut input_set);
-    let time_jarvis = execution_time(Algorithm::Jarvis, &mut input_set);
-    let time_chan = execution_time(Algorithm::Chan, &mut input_set);
-
-    // The output is printed to the console
-    println!("----------------------------------------");
-    println!("Shape: {:?}, Size: {:?}", shape, sample_size);
-    println!("graham_scan: {:?} ms", time_graham.milli_seconds());
-    println!("jarvis_march: {:?} ms", time_jarvis.milli_seconds());
-    println!("chans_algorithm: {:?} ms", time_chan.milli_seconds());
-    // println!("graham_scan: {:?} s", time_graham.seconds());
-    // println!("jarvis_march: {:?} s", time_jarvis.seconds());
-    // println!("chans_algorithm: {:?} s", time_chan.seconds());
-    println!("----------------------------------------")
-}
-
 /// One another convenient function to print the results
 /// The output is printed in console
 pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
