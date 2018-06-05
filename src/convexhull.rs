@@ -102,9 +102,14 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //set the least y-coordinate as first element
     set_pivot(input_set);
+    
     //sort the elements by polar angle with the first elements.
     //This is required to create subhulls that dont intersect
     let sorted_input_set = sort_polar_angle_ccw(input_set);
+
+    //panic when input_set has less than or equalto 2 elements
+    assert!(input_set.len() > 2);
+
     let p_1 = sorted_input_set[0];
     //assign a least element (-infinity, 0). This is used
     //for finding second hull element, when we have only one
