@@ -6,7 +6,6 @@
 extern crate time;
 use self::time::{Duration, PreciseTime};
 
-use inputset_gen::*;
 use points::*;
 use convexhull::*;
 use inputset::*;
@@ -72,7 +71,7 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
 
     let mut output: Vec<(u64, f64)> = Vec::new();
     for sample_size in sample_sizes {
-        let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
+        let mut input_set: Vec<Point2D> = generate(shape, sample_size);
         let result = (
             sample_size.val(),
             execution_time(algorithm, &mut input_set).milli_seconds(),

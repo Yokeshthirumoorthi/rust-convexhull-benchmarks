@@ -10,7 +10,6 @@ use rustalgo::convexhull::Algorithm::*;
 use rustalgo::inputset::*;
 use rustalgo::inputset::Number::*;
 use rustalgo::inputset::Shape::*;
-use rustalgo::inputset_gen::*;
 
 #[test]
 #[should_panic]
@@ -42,7 +41,7 @@ fn test_algorithms(algorithm: Algorithm, shape: Shape, hull_should_be: &Vec<Poin
     ];
 
     for sample_size in sample_sizes {
-        let mut input_set: Vec<Point2D> = get_input_set(sample_size.val(), shape.num_of_vertices());
+        let mut input_set: Vec<Point2D> = generate(shape, sample_size);
         assert_eq!(
             hull_should_be,
             &run_algorithm(algorithm, &mut input_set),
