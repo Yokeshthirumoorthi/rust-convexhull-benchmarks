@@ -1,8 +1,14 @@
+// Copyright © 2018 Yokesh Thirumoorthi
+// [This program is licensed under the "MIT License"]
+// Please see the file LICENSE in the source
+// distribution of this software for license terms.
+
 use points::Point2D;
 
 extern crate plotlib;
 use plots::plotlib::style::Point;
 
+// This code is reffered from plotlib crate's example
 pub fn draw_plot(points: &Vec<Point2D>) {
     let mut data = Vec::new();
     for point in points {

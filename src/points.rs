@@ -1,12 +1,17 @@
+// Copyright © 2018 Yokesh Thirumoorthi
+// [This program is licensed under the "MIT License"]
+// Please see the file LICENSE in the source
+// distribution of this software for license terms.
+
 //! Points types for finding canvex hull
 
 ///A basic representation of a point
 ///
 ///With x and y coordinate, a point2D
 ///is a point in 2D euclidean space
-/// 
+///
 /// #Example
-/// 
+///
 /// ```
 /// let point = points::Point2D::new(1.0,2.0);
 /// assert_eq(Point2D {x: 1.0, y: 2.0}, point);
@@ -72,7 +77,7 @@ impl Point2D {
     ///
     pub fn ccw(&self, point_b: &Point2D, point_c: &Point2D) -> bool {
         (point_b.x - self.x) * (point_c.y - self.y) - (point_b.y - self.y) * (point_c.x - self.x)
-             > 0.0
+            > 0.0
     }
 
     ///Determine the distance between 2 points
@@ -125,7 +130,7 @@ impl Fatpoint2D {
             angle: point.compute_angle(&vertex),
         }
     }
-    
+
     /// canverts a fatpoint back to point2d
     pub fn to_point(&self) -> Point2D {
         Point2D::new(self.x, self.y)
@@ -181,7 +186,8 @@ fn test_fat_point_cmp() {
 }
 
 pub fn orietation(point_a: &Point2D, point_b: &Point2D, point_c: &Point2D) -> f64 {
-    (point_b.x - point_a.x) * (point_c.y - point_a.y) - (point_b.y - point_a.y) * (point_c.x - point_a.x)
+    (point_b.x - point_a.x) * (point_c.y - point_a.y)
+        - (point_b.y - point_a.y) * (point_c.x - point_a.x)
 }
 
 ///

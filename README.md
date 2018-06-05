@@ -1,5 +1,7 @@
 # RUSTALGO
 
+Copyright (c) 2018 Yokesh Thirumoorthi
+
 A Rust library for benchmarking the following convex hull algorithms.
 
 1. Graham Scan
@@ -47,7 +49,4 @@ fn main() {
 
 ## License
 
-Rustalgo is distributed under the terms of both the MIT license and the
-Apache License (Version 2.0).
-
-See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
+This program is licensed under the "MIT License". Please see the file LICENSE in the source distribution of this software for license terms.

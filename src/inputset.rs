@@ -1,3 +1,8 @@
+// Copyright © 2018 Yokesh Thirumoorthi
+// [This program is licensed under the "MIT License"]
+// Please see the file LICENSE in the source
+// distribution of this software for license terms.
+
 //! Collection of functions that operates and
 //! modifies the input set to conveniently
 //! determine the hull points
@@ -36,10 +41,11 @@ pub fn sort_polar_angle_ccw(input_set: &Vec<Point2D>) -> Vec<Point2D> {
     let mut fat_pt_vec: Vec<Fatpoint2D> = Vec::new();
     //convert all the point2D as FatPoints
     if let Some((first, elements)) = input_set.split_first() {
-        fat_pt_vec = elements.iter()
-                        .map(|point| Fatpoint2D::new(point, &first))
-                        .collect();
-    };                     
+        fat_pt_vec = elements
+            .iter()
+            .map(|point| Fatpoint2D::new(point, &first))
+            .collect();
+    };
     //sort the fatpoint vec
     fat_pt_vec.sort_by(|a, b| b.partial_cmp_distance(a).unwrap());
     fat_pt_vec.sort_by(|a, b| a.partial_cmp(b).unwrap());
@@ -55,7 +61,11 @@ pub fn sort_polar_angle_ccw(input_set: &Vec<Point2D>) -> Vec<Point2D> {
     output
 }
 
-pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: &Vec<Point2D>) -> Point2D {
+pub fn jarvis_binary_search(
+    next_to_top: &Point2D,
+    top: &Point2D,
+    sub_hull_set: &Vec<Point2D>,
+) -> Point2D {
     let mut max_angled_point = sub_hull_set[0];
     let mut max_angle = 0.0;
     // println!("next_to_top {:?}",next_to_top);
@@ -66,23 +76,23 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
         // if next_to_top == &Point2D::new(2.,0.) {
         //     println!("next_to_top {:?}",next_to_top);
         //     println!("top {:?}",top);
-            // println!("{:?}: {}",*point, orientation);
+        // println!("{:?}: {}",*point, orientation);
         // }
 
         if max_angle < orientation && *point != *top {
             max_angle = orientation;
             max_angled_point = *point
-        } 
+        }
     }
     max_angled_point
 }
 
 // Splits the input set into chunks
-// 
-// Mostly there is a higher change for the size of last chunk to be 
+//
+// Mostly there is a higher change for the size of last chunk to be
 // less than or equal to 2 elements. This function ensures that
 // no chunk has less than or equal to 2 elements.
-//  
+//
 // #Panics
 // Panics if m is less than size of actual input set
 // or m is less than 3
@@ -94,7 +104,7 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
 //     let total_number_of_chunks = actual_input.len() / m;
 //     let size_of_last_set = actual_input.len() - (total_number_of_chunks * m);
 //     // println!("size_of_last_set: {}", size_of_last_set);
-//     // for _ in 0..total_number_of_chunks {    
+//     // for _ in 0..total_number_of_chunks {
 //     //         let mut chunk: Vec<Point2D> = Vec::new();
 //     //         for _ in 0..m {
 //     //             chunk.push(actual_input[0]);
@@ -102,9 +112,9 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
 //     //         }
 //     //         output.push(chunk);
 //     // }
-    
+
 //     // if size_of_last_set == 0 || size_of_last_set > 2 {
-        
+
 //     // }
 
 //     output
@@ -114,4 +124,4 @@ pub fn jarvis_binary_search(next_to_top: &Point2D, top: &Point2D, sub_hull_set: 
 // top Point2D { x: 0., y: 2.0 }
 // Point2D { x: -0., y: -2.0 }: 8
 // Point2D { x: -2.0, y: 0. }: 7.999999999999999
-// next_hull_point Point2D { x: -0.00000000000000036739403974420594, y: -2.0 }, 
+// next_hull_point Point2D { x: -0.00000000000000036739403974420594, y: -2.0 },

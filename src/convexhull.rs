@@ -1,3 +1,8 @@
+// Copyright © 2018 Yokesh Thirumoorthi
+// [This program is licensed under the "MIT License"]
+// Please see the file LICENSE in the source
+// distribution of this software for license terms.
+
 //! Find the convex hull using various methods
 use inputset::*;
 use points::Point2D;
@@ -11,7 +16,7 @@ use points::Point2D;
 /// CH(Q). When the algorithm terminates, stack S cpntains
 /// exactly the vertices of CH(Q), in counter clockwise
 /// order of their appearance on the boundary.
-/// 
+///
 /// The psedocode for this algorithm is referred from
 /// Introduction to Algorithms (Third Edition)
 /// Authors: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
@@ -102,7 +107,7 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     let sorted_input_set = sort_polar_angle_ccw(input_set);
     let p_1 = sorted_input_set[0];
     //assign a least element (-infinity, 0). This is used
-    //for finding second hull element, when we have only one 
+    //for finding second hull element, when we have only one
     //known hull vertex
     let p_0 = Point2D::new(p_1.x - 1.0, 0.);
     // println!("p_0 {:?}", p_0);
@@ -130,10 +135,26 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
             let mut q_i_k: Vec<Point2D> = Vec::new();
             for k in &c_k {
                 // println!("sub_hull_set {:?}",k);
-                q_i_k.push(jarvis_binary_search(if hull_points.len() > 1 { &hull_points[i-1] } else { &p_0 }, &hull_points[i], k));
+                q_i_k.push(jarvis_binary_search(
+                    if hull_points.len() > 1 {
+                        &hull_points[i - 1]
+                    } else {
+                        &p_0
+                    },
+                    &hull_points[i],
+                    k,
+                ));
                 // println!("qik: {:?}\n",q_i_k);
             }
-            let next_hull_point = jarvis_binary_search(if hull_points.len() > 1 { &hull_points[i-1] } else { &p_0 }, &hull_points[i], &q_i_k);
+            let next_hull_point = jarvis_binary_search(
+                if hull_points.len() > 1 {
+                    &hull_points[i - 1]
+                } else {
+                    &p_0
+                },
+                &hull_points[i],
+                &q_i_k,
+            );
             // println!("next_hull_point {:?}, ", next_hull_point);
             // println!("-----\n");
             if next_hull_point == hull_points[0] {
