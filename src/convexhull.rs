@@ -89,7 +89,8 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
         let p_i = last_known_hull_point;
         let mut end_point = sorted_input_set[0];
         for j in 1..sorted_input_set.len() {
-            if end_point == last_known_hull_point || sorted_input_set[j].ccw(&p_i, &end_point) {
+            if end_point == last_known_hull_point 
+                            || sorted_input_set[j].ccw(&p_i, &end_point) {
                 end_point = sorted_input_set[j];
             }
         }
@@ -134,11 +135,13 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
         let mut total_number_of_chunks = sorted_input_set.len() / m;
         //ensure that the last chunk has atleat 3 elements in it.
         //else the algorithm will panic.
-        let mut size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
+        let mut size_of_last_set 
+                    = sorted_input_set.len() - (total_number_of_chunks * m);
         while size_of_last_set > 0 && size_of_last_set < 3 {
             m += 1;
             total_number_of_chunks = sorted_input_set.len() / m;
-            size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
+            size_of_last_set 
+                    = sorted_input_set.len() - (total_number_of_chunks * m);
         }
 
         let mut chunks_set = sorted_input_set.chunks(m);
@@ -153,6 +156,7 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
         // reset m and restart the algorithm.
         for i in 0..(m - 1) {
             let mut hull_candidates_of_chuncks: Vec<Point2D> = Vec::new();
+            //pick candidates from each chunk
             for hull_set_of_chunck in &hull_set_of_chuncks {
                 hull_candidates_of_chuncks.push(jarvis_binary_search(
                     if hull_points.len() > 1 {
@@ -164,6 +168,7 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
                     hull_set_of_chunck,
                 ));
             }
+            //find the next hull point from the chosen candidates
             let next_hull_point = jarvis_binary_search(
                 if hull_points.len() > 1 {
                     &hull_points[i - 1]
@@ -173,6 +178,7 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
                 &hull_points[i],
                 &hull_candidates_of_chuncks,
             );
+            //iterate or end
             if next_hull_point == hull_points[0] {
                 return hull_points;
             } else {
