@@ -8,6 +8,55 @@
 //! determine the hull points
 use points::*;
 
+///Types of shapes used for input sampling
+#[derive(Debug, Copy, Clone)]
+pub enum Shape {
+    Triangle,
+    Rectangle,
+    Circle,
+}
+
+impl Shape {
+    pub fn num_of_vertices(self) -> u64 {
+        match self {
+            Shape::Triangle => 3,
+            Shape::Rectangle => 4,
+            // we have chosen to have 18 vertex points for a triangle
+            Shape::Circle => 18,
+        }
+    }
+}
+
+///Sizes of input sampling
+#[derive(Debug, Copy, Clone)]
+pub enum Number {
+    Hundred,
+    Thousand,
+    TenThousand,
+    HundredThousand,
+    Million,
+    TenMillion,
+    Other(u64),
+}
+
+impl Number {
+    pub fn val(self) -> u64 {
+        match self {
+            Number::Hundred => 100,
+            Number::Thousand => 1_000,
+            Number::TenThousand => 10_000,
+            Number::HundredThousand => 100_000,
+            Number::Million => 1_000_000,
+            Number::TenMillion => 10_000_000,
+            Number::Other(x) => x,
+        }
+    }
+
+    pub fn times(self, x: u64) -> Number {
+        Number::Other(self.val() * x)
+    }
+}
+
 ///Converts any raw point tuple to Point2D type
 /// and pushes it to the inputset
 pub fn push(inputset: &mut Vec<Point2D>, point: (f64, f64)) -> &Vec<Point2D> {
