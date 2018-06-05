@@ -16,15 +16,15 @@ pub fn draw_plot(points: &Vec<Point2D>) {
     }
     let s1 = plotlib::scatter::Scatter::from_slice(&data).style(
         plotlib::scatter::Style::new()
-            .marker(plotlib::style::Marker::Square)
-            .colour("burlywood")
-            .size(2.),
+            .marker(plotlib::style::Marker::Circle)
+            .colour("black")
+            .size(1.75),
     );
     let v = plotlib::view::ContinuousView::new()
         .add(&s1)
         .x_range(-3.5, 3.5)
         .y_range(-3.5, 3.5)
-        .x_label("Some varying variable")
-        .y_label("The response of something");
+        .x_label("X-axis")
+        .y_label("Y-axis");
     plotlib::page::Page::single(&v).save("scatter.svg");
 }
