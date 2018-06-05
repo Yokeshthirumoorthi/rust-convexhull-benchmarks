@@ -7,6 +7,14 @@
 use inputset::*;
 use points::Point2D;
 
+///Types of algorithms handled in this programm
+#[derive(Debug, Copy, Clone)]
+pub enum Algorithm {
+    Graham,
+    Jarvis,
+    Chan,
+}
+
 /// Solves the convexhull problem using Graham-Scan
 ///
 /// This method solves the convex-hull by maintaining a stack S

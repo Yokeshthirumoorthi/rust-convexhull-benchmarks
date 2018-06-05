@@ -11,14 +11,6 @@ use points::*;
 use convexhull::*;
 use inputset::*;
 
-///Types of algorithms handled in this programm
-#[derive(Debug, Copy, Clone)]
-pub enum Algorithm {
-    Graham,
-    Jarvis,
-    Chan,
-}
-
 /// Provides the duration in various
 /// time units
 #[derive(Debug, Copy, Clone)]

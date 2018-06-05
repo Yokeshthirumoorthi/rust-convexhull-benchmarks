@@ -6,7 +6,7 @@
 extern crate rustalgo;
 use rustalgo::benchmark::benchmark_algorithm;
 use rustalgo::inputset::Shape::*;
-use rustalgo::benchmark::Algorithm::*;
+use rustalgo::convexhull::Algorithm::*;
 
 fn main() {
     println!("Benchmark Results");
