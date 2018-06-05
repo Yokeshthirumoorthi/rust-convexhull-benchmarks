@@ -118,15 +118,22 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     //panic when input_set has less than or equalto 2 elements
     assert!(input_set.len() > 2);
 
-    let p_1 = sorted_input_set[0];
+    let first_hull_vertex = sorted_input_set[0];
     //assign a least element (-infinity, 0). This is used
     //for finding second hull element, when we have only one
-    //known hull vertex
-    let p_0 = Point2D::new(p_1.x - 1.0, 0.);
-    // println!("p_0 {:?}", p_0);
+    //known hull vertex in the output set.
+    //Note: point_off is not a point of input_set
+    let point_off = Point2D::new(first_hull_vertex.x - 1.0, 0.);
+
+    //t is the iteration needed to find m.
+    //m is the magic number of chans algorithm. It is required to
+    //be greater than or equal to h (number of vertices)
     for t in 1..sorted_input_set.len() {
         let mut m = 2_i32.pow(2).pow(t as u32) as usize;
+        // split the input into smaller chunks using m
         let mut total_number_of_chunks = sorted_input_set.len() / m;
+        //ensure that the last chunk has atleat 3 elements in it.
+        //else the algorithm will panic.
         let mut size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
         while size_of_last_set > 0 && size_of_last_set < 3 {
             m += 1;
@@ -134,42 +141,38 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
             size_of_last_set = sorted_input_set.len() - (total_number_of_chunks * m);
         }
 
-        let mut q_k = sorted_input_set.chunks(m);
-        let mut c_k: Vec<Vec<Point2D>> = Vec::new();
-        for k in q_k {
-            c_k.push(graham_scan(&mut k.to_vec()));
+        let mut chunks_set = sorted_input_set.chunks(m);
+        let mut hull_set_of_chuncks: Vec<Vec<Point2D>> = Vec::new();
+        for chunk_set in chunks_set {
+            hull_set_of_chuncks.push(graham_scan(&mut chunk_set.to_vec()));
         }
         let mut hull_points: Vec<Point2D> = Vec::new();
-        hull_points.push(p_1);
+        hull_points.push(first_hull_vertex);
         // Find 1 hull point in each iteration.
         // If not all the hull points are found within m iterations
         // reset m and restart the algorithm.
         for i in 0..(m - 1) {
-            let mut q_i_k: Vec<Point2D> = Vec::new();
-            for k in &c_k {
-                // println!("sub_hull_set {:?}",k);
-                q_i_k.push(jarvis_binary_search(
+            let mut hull_candidates_of_chuncks: Vec<Point2D> = Vec::new();
+            for hull_set_of_chunck in &hull_set_of_chuncks {
+                hull_candidates_of_chuncks.push(jarvis_binary_search(
                     if hull_points.len() > 1 {
                         &hull_points[i - 1]
                     } else {
-                        &p_0
+                        &point_off
                     },
                     &hull_points[i],
-                    k,
+                    hull_set_of_chunck,
                 ));
-                // println!("qik: {:?}\n",q_i_k);
             }
             let next_hull_point = jarvis_binary_search(
                 if hull_points.len() > 1 {
                     &hull_points[i - 1]
                 } else {
-                    &p_0
+                    &point_off
                 },
                 &hull_points[i],
-                &q_i_k,
+                &hull_candidates_of_chuncks,
             );
-            // println!("next_hull_point {:?}, ", next_hull_point);
-            // println!("-----\n");
             if next_hull_point == hull_points[0] {
                 return hull_points;
             } else {
