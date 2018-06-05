@@ -179,3 +179,12 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
     }
     Vec::new()
 }
+
+/// Executes an algorithm for given inputset of point and returns the hull points
+pub fn execute(algorithm: Algorithm, input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+    match algorithm {
+        Algorithm::Graham => graham_scan(input_set),
+        Algorithm::Jarvis => jarvis_march(input_set),
+        Algorithm::Chan => chans_algorithm(input_set),
+    }
+}

@@ -44,16 +44,8 @@ fn test_algorithms(algorithm: Algorithm, shape: Shape, hull_should_be: &Vec<Poin
         let mut input_set: Vec<Point2D> = generate(shape, sample_size);
         assert_eq!(
             hull_should_be,
-            &run_algorithm(algorithm, &mut input_set),
+            &execute(algorithm, &mut input_set)
         );
-    }
-}
-
-fn run_algorithm(algorithm: Algorithm, input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
-    match algorithm {
-        Algorithm::Graham => graham_scan(input_set),
-        Algorithm::Jarvis => jarvis_march(input_set),
-        Algorithm::Chan => chans_algorithm(input_set),
     }
 }
 

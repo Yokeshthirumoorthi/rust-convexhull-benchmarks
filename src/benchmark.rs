@@ -84,11 +84,7 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
 /// Executes an algorithm for given inputset of point and returns the time
 fn execution_time(algorithm: Algorithm, input_set: &mut Vec<Point2D>) -> Time {
     let start = PreciseTime::now();
-    match algorithm {
-        Algorithm::Graham => graham_scan(input_set),
-        Algorithm::Jarvis => jarvis_march(input_set),
-        Algorithm::Chan => chans_algorithm(input_set),
-    };
+    execute(algorithm, input_set);
     let end = PreciseTime::now();
     Time::new(start.to(end))
 }
