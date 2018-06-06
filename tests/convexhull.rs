@@ -22,10 +22,10 @@ fn test_algorithms(algorithm: Algorithm, shape: Shape, hull_should_be: &Vec<Poin
     let sample_sizes: Vec<Number> = vec![
         Hundred,
         Thousand,
-        // TenThousand,
-        // HundredThousand,
-        // Million,
-        // TenMillion,
+        TenThousand,
+        HundredThousand,
+        Million,
+        TenMillion,
     ];
 
     for sample_size in sample_sizes {
