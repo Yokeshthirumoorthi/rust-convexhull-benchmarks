@@ -52,21 +52,21 @@ impl Time {
 
 /// One another convenient function to print the results
 /// The output is printed in console
-pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
+pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape, presort: bool) {
     use self::Number::*;
     let sample_sizes: Vec<Number> = vec![
         Hundred,
-        Thousand,
-        TenThousand,
-        HundredThousand,
-        HundredThousand.times(2),
-        HundredThousand.times(5),
-        HundredThousand.times(7),
-        Million,
-        Million.times(2),
-        Million.times(5),
-        Million.times(7),
-        TenMillion,
+        // Thousand,
+        // TenThousand,
+        // HundredThousand,
+        // HundredThousand.times(2),
+        // HundredThousand.times(5),
+        // HundredThousand.times(7),
+        // Million,
+        // Million.times(2),
+        // Million.times(5),
+        // Million.times(7),
+        // TenMillion,
     ];
 
     let mut output: Vec<(u64, f64)> = Vec::new();
@@ -74,7 +74,7 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
         let mut input_set: Vec<Point2D> = generate(shape, sample_size);
         let result = (
             sample_size.val(),
-            execution_time(algorithm, &mut input_set).milli_seconds(),
+            execution_time(algorithm, &mut input_set, presort).milli_seconds(),
         );
         output.push(result);
     }
@@ -82,11 +82,17 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape) {
 }
 
 /// Executes an algorithm for given inputset of point and returns the time
-fn execution_time(algorithm: Algorithm, input_set: &mut Vec<Point2D>) -> Time {
-    // let start = PreciseTime::now();
-    let mut sorted_input_set = sort_input(input_set);
-    let start = PreciseTime::now();
-    execute(algorithm, &mut sorted_input_set);
+fn execution_time(algorithm: Algorithm, input_set: &mut Vec<Point2D>, presort: bool) -> Time {
+    let mut start = PreciseTime::now();
+    if presort {
+        let mut sorted_input_set = sort_input(input_set);
+        start = PreciseTime::now();
+        execute(algorithm, &mut sorted_input_set);
+    } else {
+        start = PreciseTime::now();
+        let mut sorted_input_set = sort_input(input_set);
+        execute(algorithm, &mut sorted_input_set);
+    }
     let end = PreciseTime::now();
     Time::new(start.to(end))
 }

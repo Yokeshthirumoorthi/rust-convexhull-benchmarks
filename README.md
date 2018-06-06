@@ -24,6 +24,7 @@ git clone https://github.com/Yokeshthirumoorthi/rustalgo.git
 cd rustalgo
 cargo build
 cargo run --release
+cargo run --release presort
 ```
 
 To run the test use
@@ -38,7 +39,7 @@ To use this library as a crate in your code, add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rustalgo = "0.1"
+rustalgo = {git = "https://github.com/Yokeshthirumoorthi/rustalgo"}
 ```
 
 ```rust
@@ -51,18 +52,19 @@ use rustalgo::benchmark::Algorithm::*;
 
 fn main() {
     println!("Benchmark Results");
+    let presort = false;
     //Triangle
-    benchmark_algorithm(Graham, Triangle);
-    benchmark_algorithm(Jarvis, Triangle);
-    benchmark_algorithm(Chan, Triangle);
+    benchmark_algorithm(Graham, Triangle, presort);
+    benchmark_algorithm(Jarvis, Triangle, presort);
+    benchmark_algorithm(Chan, Triangle, presort);
     //Rectangle
-    benchmark_algorithm(Graham, Rectangle);
-    benchmark_algorithm(Jarvis, Rectangle);
-    benchmark_algorithm(Chan, Rectangle);
+    benchmark_algorithm(Graham, Rectangle, presort);
+    benchmark_algorithm(Jarvis, Rectangle, presort);
+    benchmark_algorithm(Chan, Rectangle, presort);
     //Circle
-    benchmark_algorithm(Graham, Circle);
-    benchmark_algorithm(Jarvis, Circle);
-    benchmark_algorithm(Chan, Circle);
+    benchmark_algorithm(Graham, Circle, presort);
+    benchmark_algorithm(Jarvis, Circle, presort);
+    benchmark_algorithm(Chan, Circle, presort);
 }
 ```
 ## Author
