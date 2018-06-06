@@ -83,6 +83,7 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape, presort: bool) {
 
 /// Executes an algorithm for given inputset of point and returns the time
 fn execution_time(algorithm: Algorithm, input_set: &mut Vec<Point2D>, presort: bool) -> Time {
+    #[allow(unused_assignments)]
     let mut start = PreciseTime::now();
     if presort {
         let mut sorted_input_set = sort_input(input_set);
