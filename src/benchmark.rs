@@ -56,17 +56,17 @@ pub fn benchmark_algorithm(algorithm: Algorithm, shape: Shape, presort: bool) {
     use self::Number::*;
     let sample_sizes: Vec<Number> = vec![
         Hundred,
-        // Thousand,
-        // TenThousand,
-        // HundredThousand,
-        // HundredThousand.times(2),
-        // HundredThousand.times(5),
-        // HundredThousand.times(7),
-        // Million,
-        // Million.times(2),
-        // Million.times(5),
-        // Million.times(7),
-        // TenMillion,
+        Thousand,
+        TenThousand,
+        HundredThousand,
+        HundredThousand.times(2),
+        HundredThousand.times(5),
+        HundredThousand.times(7),
+        Million,
+        Million.times(2),
+        Million.times(5),
+        Million.times(7),
+        TenMillion,
     ];
 
     let mut output: Vec<(u64, f64)> = Vec::new();
