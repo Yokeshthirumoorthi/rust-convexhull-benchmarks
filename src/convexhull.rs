@@ -29,20 +29,7 @@ pub enum Algorithm {
 /// Introduction to Algorithms (Third Edition)
 /// Authors: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
 pub fn graham_scan(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
-    //find the pivot point in the input set with the
-    //minimum y-coordinate, or the leftmost such point
-    //in case of tie and set the pivot point as first
-    //element of the set
-    set_pivot(input_set);
-
-    //sort the remianing elements in input set by polar
-    //angle in counter clockwise order around pivot point.
-    //(if more than one point has the same angle, remove all
-    //but the one that is farthest from pivot point)
-    let sorted_input_set = sort_polar_angle_ccw(input_set);
-
-    //panic when input_set has less than or equalto 2 elements
-    assert!(input_set.len() > 2);
+    let sorted_input_set = input_set;
 
     //initialize the stack that will maintain the candidate points
     let mut hull_points: Vec<Point2D> = Vec::new();
@@ -66,20 +53,7 @@ pub fn graham_scan(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 /// Introduction to Algorithms (Third Edition)
 /// Authors: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
 pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
-    //find the pivot point in the input set with the
-    //minimum y-coordinate, or the leftmost such point
-    //in case of tie and set the pivot point as first
-    //element of the set
-    set_pivot(input_set);
-
-    //sort the remianing elements in input set by polar
-    //angle in counter clockwise order around pivot point.
-    //(if more than one point has the same angle, remove all
-    //but the one that is farthest from pivot point)
-    let sorted_input_set = sort_polar_angle_ccw(input_set);
-
-    //panic when input_set has less than or equalto 2 elements
-    assert!(input_set.len() > 2);
+    let sorted_input_set = input_set;
 
     let mut last_known_hull_point = sorted_input_set[0];
     //initialize the stack that will maintain the candidate points
@@ -109,15 +83,7 @@ pub fn jarvis_march(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
 /// https://en.wikipedia.org/wiki/Chan%27s_algorithm
 /// https://www.slideshare.net/amrinderarora/convex-hull-chans-algorithm-on-log-h-output-sensitive-algorithm
 pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
-    //set the least y-coordinate as first element
-    set_pivot(input_set);
-    
-    //sort the elements by polar angle with the first elements.
-    //This is required to create subhulls that dont intersect
-    let sorted_input_set = sort_polar_angle_ccw(input_set);
-
-    //panic when input_set has less than or equalto 2 elements
-    assert!(input_set.len() > 2);
+    let sorted_input_set = input_set;   
 
     let first_hull_vertex = sorted_input_set[0];
     //assign a least element (-infinity, 0). This is used
@@ -147,7 +113,8 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
         let mut chunks_set = sorted_input_set.chunks(m);
         let mut hull_set_of_chuncks: Vec<Vec<Point2D>> = Vec::new();
         for chunk_set in chunks_set {
-            hull_set_of_chuncks.push(graham_scan(&mut chunk_set.to_vec()));
+            let mut sorted_chunk = sort_input(&mut chunk_set.to_vec());
+            hull_set_of_chuncks.push(graham_scan(&mut sorted_chunk));
         }
         let mut hull_points: Vec<Point2D> = Vec::new();
         hull_points.push(first_hull_vertex);
@@ -187,6 +154,32 @@ pub fn chans_algorithm(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
         }
     }
     Vec::new()
+}
+
+/// Prepares the input set for executing the algorithm.
+/// 
+/// Finds the first hull element and sorts the rest 
+/// of the elements based on angle formed with the first
+/// hull element
+/// 
+/// # Panics
+/// Panics when size of input is not atleast 3
+/// 
+pub fn sort_input(input_set: &mut Vec<Point2D>) -> Vec<Point2D> {
+    //panic when input_set has less than or equalto 2 elements
+    assert!(input_set.len() > 2);
+
+    //find the pivot point in the input set with the
+    //minimum y-coordinate, or the leftmost such point
+    //in case of tie and set the pivot point as first
+    //element of the set
+    set_pivot(input_set);
+
+    //sort the remianing elements in input set by polar
+    //angle in counter clockwise order around pivot point.
+    //(if more than one point has the same angle, remove all
+    //but the one that is farthest from pivot point)
+    sort_polar_angle_ccw(input_set)
 }
 
 /// Executes an algorithm for given inputset of point and returns the hull points

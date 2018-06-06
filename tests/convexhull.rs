@@ -13,21 +13,9 @@ use rustalgo::inputset::Shape::*;
 
 #[test]
 #[should_panic]
-fn test_graham_scan_with_smallinput() {
+fn test_sort_input_with_smallinput() {
     let point = Point2D::new(1.0, 2.0);
-    graham_scan(&mut vec![point]);
-}
-#[test]
-#[should_panic]
-fn test_jarvis_march_with_smallinput() {
-    let point = Point2D::new(1.0, 2.0);
-    jarvis_march(&mut vec![point]);
-}
-#[test]
-#[should_panic]
-fn test_chans_algorithm_with_smallinput() {
-    let point = Point2D::new(1.0, 2.0);
-    chans_algorithm(&mut vec![point]);
+    sort_input(&mut vec![point]);
 }
 
 fn test_algorithms(algorithm: Algorithm, shape: Shape, hull_should_be: &Vec<Point2D>) {
@@ -42,9 +30,10 @@ fn test_algorithms(algorithm: Algorithm, shape: Shape, hull_should_be: &Vec<Poin
 
     for sample_size in sample_sizes {
         let mut input_set: Vec<Point2D> = generate(shape, sample_size);
+        let mut sorted_input_set = sort_input(&mut input_set);
         assert_eq!(
             hull_should_be,
-            &execute(algorithm, &mut input_set)
+            &execute(algorithm, &mut sorted_input_set)
         );
     }
 }
